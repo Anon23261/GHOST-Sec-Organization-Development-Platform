@@ -74,6 +74,52 @@
         .feature-table th {
             background-color: #f0f0f0;
         }
+        
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .project-card {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem;
+            width: calc(33.33% - 2rem);
+        }
+        
+        .project-card h3 {
+            color: #00cc00;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-link {
+            background: #00ff00;
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        
+        .stack-sections {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stack-section {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem;
+            width: calc(33.33% - 2rem);
+        }
+        
+        .stack-section h3 {
+            color: #00cc00;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -133,11 +179,20 @@
                 <h3>System Specifications</h3>
                 <ul>
                     <li>Latest Version: 15.0 (Released February 2, 2022)</li>
-                    <li>Kernel Version: 5.15.x LTS</li>
+                    <li>Kernel Version: 6.6.8 LTS (Latest stable as of December 2023)</li>
                     <li>Package Format: .tgz, .txz (compressed tar archives)</li>
-                    <li>Default Desktop: KDE Plasma 5.23.5</li>
-                    <li>Alternative Desktops: Xfce 4.16, Fluxbox</li>
+                    <li>Default Desktop: KDE Plasma 5.27</li>
+                    <li>Alternative Desktops: Xfce 4.18, Fluxbox</li>
                     <li>Init System: SysVinit</li>
+                </ul>
+
+                <h3>Important Resources</h3>
+                <ul>
+                    <li><a href="https://www.kernel.org/" target="_blank">Official Linux Kernel Archives</a></li>
+                    <li><a href="https://www.linuxfromscratch.org/lfs/view/stable/" target="_blank">Linux From Scratch Book (LFS)</a></li>
+                    <li><a href="https://docs.slackware.com/" target="_blank">Slackware Documentation</a></li>
+                    <li><a href="https://slackbuilds.org/" target="_blank">SlackBuilds.org - Community Package Repository</a></li>
+                    <li><a href="http://www.slackbook.org/" target="_blank">The Slackware Book</a></li>
                 </ul>
 
                 <h3>Key Features</h3>
@@ -266,11 +321,71 @@
                     </tr>
                 </table>
             </section>
+
+            <section class="content-section" id="os-development">
+                <h2>OS Development Projects</h2>
+                <div class="project-links">
+                    <div class="project-card">
+                        <h3>Official GHOST-C OS</h3>
+                        <p>Our flagship operating system project focused on security and performance.</p>
+                        <a href="https://github.com/Anon23261/Official-ghostC-OS" target="_blank" class="project-link">View Project</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>GHOST-C OS (Development)</h3>
+                        <p>Development branch of GHOST-C OS with experimental features.</p>
+                        <a href="https://github.com/Anon23261/GHOSTc-OS" target="_blank" class="project-link">View Project</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>First Bootloader Build</h3>
+                        <p>Initial bootloader implementation and learning resources.</p>
+                        <a href="https://github.com/Anon23261/FirstBootloaderBuild" target="_blank" class="project-link">View Project</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="os-development-game">
+                <h2>OS Development Challenge</h2>
+                <div id="osDevGameContainer"></div>
+            </section>
+
+            <section class="content-section" id="fullstack">
+                <h2>Full Stack Development</h2>
+                <div class="stack-sections">
+                    <div class="stack-section">
+                        <h3>Frontend Development</h3>
+                        <ul>
+                            <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                            <li>React.js & Next.js</li>
+                            <li>TypeScript</li>
+                            <li>WebAssembly</li>
+                        </ul>
+                    </div>
+                    <div class="stack-section">
+                        <h3>Backend Development</h3>
+                        <ul>
+                            <li>Node.js & Express</li>
+                            <li>Python & FastAPI</li>
+                            <li>C++ with Crow framework</li>
+                            <li>Database Design</li>
+                        </ul>
+                    </div>
+                    <div class="stack-section">
+                        <h3>DevOps & Deployment</h3>
+                        <ul>
+                            <li>Docker & Kubernetes</li>
+                            <li>CI/CD Pipelines</li>
+                            <li>Cloud Services (AWS, GCP)</li>
+                            <li>Security Best Practices</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
     <footer>
         <p>&copy; 2024 GHOST Sec Organization. All rights reserved.</p>
     </footer>
+    <script src="js/os-dev-game.js"></script>
 </body>
 </html>

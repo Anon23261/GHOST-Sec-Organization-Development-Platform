@@ -521,3 +521,110 @@ footer {
     font-size: 2rem;
   }
 }
+
+/* OS Development Game Styles */
+.os-dev-terminal {
+    background: #000;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+}
+
+.code-editor {
+    background: #1a1a1a;
+    color: #00ff00;
+    padding: 1rem;
+    border-radius: 4px;
+    min-height: 200px;
+    margin-bottom: 1rem;
+    white-space: pre;
+    overflow-x: auto;
+    border: 1px solid #00ff00;
+}
+
+.editor-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.editor-controls button {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.editor-controls button:hover {
+    background: #00cc00;
+}
+
+.challenge-text {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.challenge-text h3 {
+    color: #00ff00;
+    margin-bottom: 0.5rem;
+}
+
+.success-message {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.error-message {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.hint-message {
+    background: rgba(255, 255, 0, 0.1);
+    color: #ffff00;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.victory-message {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 8px;
+}
+
+.victory-message h2 {
+    color: #00ff00;
+    margin-bottom: 1rem;
+}
+
+.victory-message button {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.victory-message button:hover {
+    background: #00cc00;
+}
