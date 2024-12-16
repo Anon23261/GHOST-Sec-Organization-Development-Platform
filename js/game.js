@@ -11,7 +11,7 @@ class TerminalGame {
 
     async loadLevels() {
         try {
-            const response = await fetch('/media/ghost/1CEB-1733/School/Module8Lesson3/js/levels.json');
+            const response = await fetch('./js/levels.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
