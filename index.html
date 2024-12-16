@@ -8,6 +8,8 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>GHOST Sec Organization</title>
     <link rel="stylesheet" href="css/flexbox-styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -24,8 +26,10 @@
                     <li><a href="#games">Games</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button class="login-btn">Login</button>
-                <button class="register-btn">Register</button>
+                <div class="auth-buttons">
+                    <a href="login.html" class="auth-button login">Login</a>
+                    <a href="register.html" class="auth-button register">Register</a>
+                </div>
             </div>
         </nav>
     </header>
@@ -156,6 +160,14 @@
                         <li>Security</li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+        <section id="slackware-game" class="content-section">
+            <h2>Slackware OS Development Game</h2>
+            <p>Learn to build your own Slackware-based operating system through our interactive 15-level tutorial game.</p>
+            <div id="gameContainer" class="game-container">
+                <!-- Game content will be dynamically inserted here -->
             </div>
         </section>
 
