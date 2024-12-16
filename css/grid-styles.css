@@ -1,0 +1,120 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "main sidebar"
+        "footer footer";
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header styles */
+.header {
+    grid-area: header;
+    background-color: #2c3e50;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Main content styles */
+.main-content {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.content p {
+    margin-bottom: 1rem;
+}
+
+/* Sidebar styles */
+.sidebar {
+    grid-area: sidebar;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar li:last-child {
+    border-bottom: none;
+}
+
+/* Footer styles */
+.footer {
+    grid-area: footer;
+    background-color: #2c3e50;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-areas:
+            "header"
+            "main"
+            "sidebar"
+            "footer";
+        grid-template-columns: 1fr;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .content, .sidebar {
+        margin: 0;
+    }
+}
