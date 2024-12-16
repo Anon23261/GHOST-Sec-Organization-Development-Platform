@@ -156,3 +156,7 @@ GHOST SEC | SYSTEM INITIALIZED | READY FOR DEPLOYMENT
 ```
 
 </div>
+- name: Configure Git
+  run: |
+    git config --global user.name "GitHub Actions Bot"
+    git config --global user.email "actions@github.com"
