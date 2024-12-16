@@ -9,81 +9,31 @@ permissions:
   contents: write
   pages: write
   id-token: write
-  actions: write
-  deployments: write
-  statuses: write
-  checks: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
-env:
-  BUILD_TYPE: Release
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libsfml-dev cmake build-essential
-          npm install
-
-      - name: Build C++ game
-        run: |
-          cd cpp
-          chmod +x build.sh
-          ./build.sh
-          cd ..
-          mkdir -p dist/cpp
-          cp cpp/build/process_game dist/cpp/ || true
-          cp -r cpp/assets dist/cpp/ || true
-
-      - name: Build web assets
-        run: |
-          mkdir -p dist
-          cp -r index.html css js images dist/ || true
-          npm run build
 
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v3
         with:
-          enablement: true
-          static_site_generator: next
-          generator_config_file: ''
+          # Upload entire repository
+          path: '.'
           token: ${{ secrets.GITHUB_TOKEN }}
+          static_site_generator: "null"
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './dist'
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
