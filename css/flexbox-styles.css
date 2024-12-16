@@ -526,9 +526,38 @@ footer {
 .os-dev-terminal {
     background: #000;
     border-radius: 8px;
-    padding: 1rem;
+    padding: 1.5rem;
     margin: 1rem 0;
     font-family: 'Courier New', monospace;
+}
+
+.game-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bootloader-select {
+    background: #1a1a1a;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.customize-btn {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.customize-btn:hover {
+    background: #00cc00;
 }
 
 .code-editor {
@@ -541,15 +570,139 @@ footer {
     white-space: pre;
     overflow-x: auto;
     border: 1px solid #00ff00;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
-.editor-controls {
+.terminal-output {
+    background: #1a1a1a;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.terminal-output .success {
+    color: #00ff00;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.terminal-output .error {
+    color: #ff0000;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.terminal-output .hint {
+    color: #ffff00;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.customize-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #00ff00;
+}
+
+.modal-content h3 {
+    color: #00ff00;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 0.5rem;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+}
+
+.section h4 {
+    color: #00cc00;
+    margin-bottom: 1rem;
+}
+
+.package-list, .module-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.package-list label, .module-list label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+}
+
+.init-select {
+    width: 100%;
+    padding: 0.5rem;
+    background: #000;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    border-radius: 4px;
+}
+
+.save-btn, .close-btn {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.save-btn:hover, .close-btn:hover {
+    background: #00cc00;
+}
+
+.tasks {
+    margin: 1rem 0;
+}
+
+.task {
+    padding: 0.5rem;
+    margin: 0.25rem 0;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+    color: #00ff00;
+}
+
+.controls {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
 }
 
-.editor-controls button {
+.hint-btn, .run-btn {
     background: #00ff00;
     color: #000;
     border: none;
@@ -559,72 +712,6 @@ footer {
     font-weight: bold;
 }
 
-.editor-controls button:hover {
-    background: #00cc00;
-}
-
-.challenge-text {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: rgba(0, 255, 0, 0.1);
-    border-radius: 4px;
-}
-
-.challenge-text h3 {
-    color: #00ff00;
-    margin-bottom: 0.5rem;
-}
-
-.success-message {
-    background: rgba(0, 255, 0, 0.2);
-    color: #00ff00;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.error-message {
-    background: rgba(255, 0, 0, 0.2);
-    color: #ff0000;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.hint-message {
-    background: rgba(255, 255, 0, 0.1);
-    color: #ffff00;
-    padding: 1rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    text-align: center;
-}
-
-.victory-message {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(0, 255, 0, 0.1);
-    border-radius: 8px;
-}
-
-.victory-message h2 {
-    color: #00ff00;
-    margin-bottom: 1rem;
-}
-
-.victory-message button {
-    background: #00ff00;
-    color: #000;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 1rem;
-}
-
-.victory-message button:hover {
+.hint-btn:hover, .run-btn:hover {
     background: #00cc00;
 }
