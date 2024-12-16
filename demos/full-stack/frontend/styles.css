@@ -3,6 +3,11 @@
     --background: #1a1a1a;
     --background-light: #2a2a2a;
     --text: #ffffff;
+    --border-radius: 8px;
+    --success: #00ff00;
+    --error: #ff0000;
+    --warning: #ffff00;
+    --info: #00ccff;
 }
 
 body {
@@ -25,36 +30,51 @@ body {
     margin: 2rem auto;
     padding: 2rem;
     background: var(--background-light);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     border: 1px solid var(--primary);
+    animation: slideIn 0.3s ease;
 }
 
-.form-group {
-    margin-bottom: 1rem;
+.auth-form h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
+.auth-form p {
+    text-align: center;
+    margin-top: 1rem;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 0.5rem;
-    background: var(--background);
-    border: 1px solid var(--primary);
-    color: var(--text);
-    border-radius: 4px;
+.auth-form a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.auth-form a:hover {
+    text-decoration: underline;
 }
 
 /* Game Interface */
+#gameInterface {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 header {
     background: var(--background-light);
-    padding: 1rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--primary);
+}
+
+header h1 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin: 0;
 }
 
 .user-info {
@@ -71,15 +91,21 @@ main {
     width: 100%;
 }
 
+/* Progress Info */
 .progress-info {
     margin-bottom: 2rem;
 }
 
+.progress-info h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
 .progress-bar {
     width: 100%;
-    height: 20px;
+    height: 8px;
     background: var(--background-light);
-    border-radius: 10px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
@@ -89,16 +115,23 @@ main {
     transition: width 0.3s ease;
 }
 
+/* Game Container */
 .game-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 2rem;
 }
 
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Terminal */
 .terminal {
     background: var(--background-light);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     overflow: hidden;
     border: 1px solid var(--primary);
 }
@@ -121,17 +154,44 @@ main {
     cursor: pointer;
 }
 
+.terminal-controls .minimize {
+    background: #ffbd2e;
+}
+
+.terminal-controls .maximize {
+    background: #28c940;
+}
+
+.terminal-controls .close {
+    background: #ff5f56;
+}
+
 .terminal-body {
     padding: 1rem;
     height: 500px;
     display: flex;
     flex-direction: column;
+    font-family: 'Fira Code', monospace;
 }
 
 .output {
     flex: 1;
     overflow-y: auto;
     margin-bottom: 1rem;
+    padding-right: 1rem;
+}
+
+.output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.output::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
 }
 
 .input-line {
@@ -156,13 +216,18 @@ main {
 /* Info Panel */
 .info-panel {
     background: var(--background-light);
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     padding: 1rem;
     border: 1px solid var(--primary);
 }
 
 .objectives {
     margin-bottom: 2rem;
+}
+
+.objectives h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
 }
 
 .objectives ul {
@@ -174,6 +239,12 @@ main {
     padding: 0.5rem 0;
     display: flex;
     align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.objectives li.completed {
+    opacity: 1;
 }
 
 .objectives li.completed::before {
@@ -182,50 +253,79 @@ main {
     margin-right: 0.5rem;
 }
 
+/* Hints */
+.hints {
+    margin-top: 2rem;
+}
+
+.hints h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.hints p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
 /* Terminal Output Types */
 .command {
     color: var(--text);
 }
 
 .success {
-    color: var(--primary);
+    color: var(--success);
 }
 
 .error {
-    color: #ff0000;
+    color: var(--error);
 }
 
-.hint {
-    color: #ffff00;
+.warning {
+    color: var(--warning);
 }
 
-/* Buttons */
-button {
+.info {
+    color: var(--info);
+}
+
+/* Animations */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
     background: var(--primary);
-    color: var(--background);
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Fira Code', monospace;
-    transition: background-color 0.2s;
+    margin-left: 4px;
+    animation: blink 1s infinite;
 }
 
-button:hover {
-    background: #00cc00;
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .terminal-body {
+        height: 300px;
+    }
+
+    .auth-form {
+        margin: 1rem;
+        padding: 1rem;
+    }
 }
 
-button:disabled {
-    background: #666;
-    cursor: not-allowed;
-}
-
-/* Links */
-a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
+/* Import demo styles */
+@import url('../../demo-styles.css');

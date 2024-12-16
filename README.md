@@ -164,149 +164,165 @@ GHOST SEC | SYSTEM INITIALIZED | READY FOR DEPLOYMENT
     - SSL: Full
     - Always Use HTTPS: On
 
-# 🚀 Linux Learning Platform
+# Slackware Learning Platform
 
-<div align="center">
+![License](https://img.shields.io/badge/license-MIT-green)
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![Status](https://img.shields.io/badge/status-active-success)
 
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-![Slackware](https://img.shields.io/badge/Slackware-000000?style=for-the-badge&logo=slackware&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+A comprehensive learning platform focused on Slackware Linux and OS development, featuring interactive tutorials and hands-on learning experiences.
 
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Website](https://img.shields.io/badge/Website-Live-brightgreen.svg)](https://ghostsec420.github.io/linux-guide/)
-[![Last Commit](https://img.shields.io/github/last-commit/ghostsec420/linux-guide.svg)](https://github.com/ghostsec420/linux-guide/commits/main)
+## 🎮 Interactive Learning Games
 
-</div>
+### 1. Slackware Terminal Game (C++)
+A professional-grade terminal-based learning game with 20 levels of increasing complexity:
 
-## 📚 Table of Contents
-- [Overview](#-overview)
-- [Features](#-features)
-- [Interactive Learning](#-interactive-learning)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Development](#-development)
-- [Contributing](#-contributing)
-- [Contact](#-contact)
+- **Installation**: 
+  ```bash
+  cd games
+  chmod +x build.sh
+  ./build.sh
+  ./slackware_terminal_game
+  ```
 
-## 🌟 Overview
+- **Features**:
+  - 20 progressive levels covering all aspects of Slackware
+  - Real terminal command validation
+  - Progress saving/loading
+  - Detailed hints and documentation
+  - Professional terminal UI with color coding
 
-An interactive platform for learning Linux, focusing on Slackware distribution and OS development. This project combines comprehensive guides with hands-on learning through interactive terminal simulations and OS development challenges.
+### 2. Full-Stack Learning Platform
+An interactive web-based learning platform with user authentication and progress tracking:
 
-## 🎯 Features
+- **Backend Setup**:
+  ```bash
+  cd demos/full-stack/backend
+  npm install
+  node server.js
+  ```
 
-### 🐧 Linux Guide
-- **Comprehensive Documentation**: Detailed guides on Linux fundamentals
-- **Slackware Focus**: In-depth coverage of Slackware Linux
-- **Command Reference**: Extensive Linux command documentation
-- **Best Practices**: System administration and security guidelines
+- **Frontend Access**:
+  Open `demos/full-stack/frontend/index.html` in your browser
 
-### 🎮 Interactive Learning
-- **Terminal Simulator**: Practice Linux commands in a safe environment
-- **OS Development Game**: Learn OS development concepts interactively
-- **Progress Tracking**: Monitor your learning journey
-- **Instant Feedback**: Real-time command validation and hints
+- **Features**:
+  - User authentication system
+  - Progress tracking
+  - Interactive terminal interface
+  - Real-time command validation
+  - Visual progress tracking
+  - Limited hint system
 
-### 🛠 Development Tools
-- **Custom Build Options**: Create personalized Slackware builds
-- **Bootloader Configuration**: Learn LILO and GRUB setup
-- **Package Management**: Understand Slackware package system
-- **System Administration**: Hands-on system configuration tasks
+## 🚀 Features
 
-## 🎓 Interactive Learning
+### Learning Modules
+1. **Basic System Navigation**
+   - File system structure
+   - Basic commands
+   - Directory management
 
-Our platform features two main interactive components:
+2. **Package Management**
+   - Slackware package system
+   - Installation and removal
+   - System updates
 
-### 1. Terminal Simulator
-- Practice Linux commands safely
-- Real-time feedback and validation
-- Progressive difficulty levels
-- Command history and suggestions
+3. **System Administration**
+   - User management
+   - Service configuration
+   - Security settings
 
-### 2. OS Development Game
-```bash
-# Example game progression
-Level 1: System Preparation
-├── Partition Management
-├── Filesystem Setup
-└── Base System Installation
+4. **Network Configuration**
+   - Interface setup
+   - Network services
+   - Security protocols
 
-Level 2: System Configuration
-├── Network Setup
-├── User Management
-└── Security Configuration
+5. **Advanced Topics**
+   - Kernel compilation
+   - System optimization
+   - Custom package building
 
-Level 3: Advanced Features
-├── Bootloader Installation
-├── Kernel Configuration
-└── Package Management
-```
+## 💻 Technical Stack
 
-## 🚀 Installation
+### Backend
+- Node.js
+- Express
+- MongoDB
+- JWT Authentication
 
-1. Clone the repository:
-```bash
-git clone https://github.com/ghostsec420/linux-guide.git
-cd linux-guide
-```
+### Frontend
+- Vue.js
+- Modern CSS
+- Interactive Terminal UI
 
-2. Open in your browser:
-```bash
-# Using Python's built-in server
-python -m http.server 8000
+### C++ Game
+- Standard C++11
+- POSIX Terminal Interface
+- File I/O for Progress Saving
 
-# Or using Node.js
-npx serve
-```
+## 📱 Responsive Design
+- Mobile-friendly interface
+- Adaptive terminal display
+- Touch-optimized controls
 
-## 💻 Usage
+## 🔒 Security Features
+- Secure authentication
+- Protected API endpoints
+- Safe command execution
+- Progress persistence
 
-1. Visit the [Live Website](https://ghostsec420.github.io/linux-guide/)
-2. Navigate through the Linux Guide sections
-3. Try the interactive terminal simulator
-4. Challenge yourself with the OS development game
+## 📞 Contact Information
+- Email: ghostsector@icloud.com
+- Phone: +1 (480) 235-3187
+- GitHub: https://github.com/Anon23261
 
-## 🛠 Development
+## 🛠️ Development
 
 ### Prerequisites
-- Modern web browser
-- Basic understanding of Linux
-- Text editor or IDE
+- C++ Compiler (GCC/G++ 7.0+)
+- Node.js (14.0+)
+- MongoDB
+- Modern Web Browser
 
-### Local Development
+### Building from Source
+1. Clone the repository
+2. Build the C++ game:
+   ```bash
+   cd games
+   ./build.sh
+   ```
+3. Set up the web platform:
+   ```bash
+   cd demos/full-stack/backend
+   npm install
+   ```
+
+### Contributing
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## 🤝 Contributing
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Contributions are welcome! Please follow these steps:
+## 🙏 Acknowledgments
+- Slackware Linux Community
+- Open Source Contributors
+- Beta Testers and Users
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📞 Contact
-
-- Email: [ghostsector@icloud.com](mailto:ghostsector@icloud.com)
-- Phone: [+1 (480) 235-3187](tel:+14802353187)
-- GitHub: [@Anon23261](https://github.com/Anon23261)
+## 🔄 Updates
+- Added 20-level C++ terminal game
+- Implemented full-stack demo platform
+- Enhanced UI/UX with modern design
+- Added comprehensive documentation
+- Improved security features
 
 <div align="center">
 
-### 🌟 Star us on GitHub — it helps!
+```ascii
+[EOF]
+GHOST SEC | SYSTEM INITIALIZED | READY FOR DEPLOYMENT
+```
 
-[![GitHub stars](https://img.shields.io/github/stars/ghostsec420/linux-guide.svg?style=social&label=Star)](https://github.com/ghostsec420/linux-guide)
-[![GitHub followers](https://img.shields.io/github/followers/ghostsec420.svg?style=social&label=Follow)](https://github.com/ghostsec420)
-
-</div>
-
----
-
-<div align="center">
-Made with 💚 by GHOST Sec Organization
 </div>
