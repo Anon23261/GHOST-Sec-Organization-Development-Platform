@@ -5,9 +5,9 @@ class TerminalGame {
         this.currentLevel = 0;
         this.commandHistory = [];
         this.historyIndex = -1;
-        this.levels = null;
-        this.loadLevels();
-        this.userProgress = this.loadProgress();
+        this.loadLevels().then(() => {
+            this.userProgress = this.loadProgress();
+        });
     }
 
     async loadLevels() {
@@ -17,11 +17,10 @@ class TerminalGame {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            if (!data || !data.levels || !Array.isArray(data.levels) || data.levels.length === 0) {
-                throw new Error('Invalid levels data structure');
+            this.levels = data.levels;
+            if (this.levels && this.levels.length > 0) {
+                this.init();
             }
-            this.levels = data;
-            this.init();
         } catch (error) {
             console.error('Error loading levels:', error);
             this.showError(`Failed to load game levels: ${error.message}. Please refresh the page.`);
@@ -97,7 +96,7 @@ class TerminalGame {
     }
 
     handleTabCompletion(partial) {
-        const currentLevel = this.levels.levels[this.currentLevel];
+        const currentLevel = this.levels[this.currentLevel];
         const matches = currentLevel.commands.filter(cmd => cmd.startsWith(partial));
         
         if (matches.length === 1) {
@@ -109,7 +108,7 @@ class TerminalGame {
     }
 
     init() {
-        if (!this.levels || !this.levels.levels || this.levels.levels.length === 0) {
+        if (!this.levels || !this.levels.length > 0) {
             console.error('Levels not properly loaded');
             return;
         }
@@ -140,7 +139,7 @@ class TerminalGame {
     welcomeMessage() {
         const messages = [
             'Welcome to Slackware Linux Build System Tutorial!',
-            `Level ${this.currentLevel + 1}: ${this.levels.levels[this.currentLevel].title}`,
+            `Level ${this.currentLevel + 1}: ${this.levels[this.currentLevel].title}`,
             'Type commands to complete the objectives. Use "help" for assistance.',
             ''
         ];
@@ -148,7 +147,7 @@ class TerminalGame {
     }
 
     createLevelInfo() {
-        if (!this.levels || !this.levels.levels || !this.levels.levels[this.currentLevel]) {
+        if (!this.levels || !this.levels[this.currentLevel]) {
             console.error('Cannot create level info - invalid level data');
             return document.createElement('div');
         }
@@ -159,7 +158,7 @@ class TerminalGame {
         const levelHeader = document.createElement('div');
         levelHeader.className = 'level-header';
         
-        const currentLevel = this.levels.levels[this.currentLevel];
+        const currentLevel = this.levels[this.currentLevel];
         
         const levelTitle = document.createElement('h2');
         levelTitle.textContent = `Level ${this.currentLevel + 1}: ${currentLevel.title}`;
@@ -225,7 +224,7 @@ class TerminalGame {
 
         this.appendToOutput(`root@slackware:~# ${command}`, 'command-line');
 
-        const currentLevelData = this.levels.levels[this.currentLevel];
+        const currentLevelData = this.levels[this.currentLevel];
         if (currentLevelData.commands.includes(command)) {
             this.appendToOutput('Command successful! Objective completed.', 'success-message');
             
@@ -258,7 +257,7 @@ class TerminalGame {
     }
 
     isLevelComplete() {
-        const currentLevelData = this.levels.levels[this.currentLevel];
+        const currentLevelData = this.levels[this.currentLevel];
         const requiredCommands = new Set(currentLevelData.commands);
         const completedCommands = new Set(
             Array.from(this.terminal.querySelectorAll('.command-line'))
@@ -274,11 +273,11 @@ class TerminalGame {
         modal.innerHTML = `
             <div class="modal-content">
                 <h2>Level ${this.currentLevel + 1} Complete!</h2>
-                <p>You've mastered ${this.levels.levels[this.currentLevel].title}</p>
+                <p>You've mastered ${this.levels[this.currentLevel].title}</p>
                 <div class="level-summary">
                     <h3>Level Summary:</h3>
                     <ul>
-                        ${this.levels.levels[this.currentLevel].objectives.map(obj => `<li>${obj} ✓</li>`).join('')}
+                        ${this.levels[this.currentLevel].objectives.map(obj => `<li>${obj} ✓</li>`).join('')}
                     </ul>
                 </div>
                 <button class="next-level-btn">Continue to Next Level</button>
@@ -295,7 +294,7 @@ class TerminalGame {
 
     nextLevel() {
         this.currentLevel++;
-        if (this.currentLevel < this.levels.levels.length) {
+        if (this.currentLevel < this.levels.length) {
             this.userProgress.currentLevel = this.currentLevel;
             this.saveProgress();
             this.init();
@@ -305,7 +304,7 @@ class TerminalGame {
     }
 
     showHint() {
-        const currentLevelData = this.levels.levels[this.currentLevel];
+        const currentLevelData = this.levels[this.currentLevel];
         const hintIndex = Math.floor(Math.random() * currentLevelData.hints.length);
         this.appendToOutput(`Hint: ${currentLevelData.hints[hintIndex]}`, 'hint-message');
     }
@@ -442,9 +441,9 @@ class TerminalGame {
         const progress = document.createElement('div');
         progress.className = 'level-progress';
         progress.innerHTML = `
-            <span class="level-number">Level ${this.currentLevel + 1} of ${this.levels.levels.length}</span>
+            <span class="level-number">Level ${this.currentLevel + 1} of ${this.levels.length}</span>
             <div class="progress-bar">
-                <div class="progress" style="width: ${(this.currentLevel / this.levels.levels.length) * 100}%"></div>
+                <div class="progress" style="width: ${(this.currentLevel / this.levels.length) * 100}%"></div>
             </div>
         `;
         this.container.insertBefore(progress, this.container.firstChild);
