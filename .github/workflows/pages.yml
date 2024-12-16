@@ -35,22 +35,32 @@ jobs:
           mkdir -p _site
           cp -r * _site/ || true
           
-      - name: Configure custom domain
+      - name: Configure DNS
         run: |
           echo "${{ env.DOMAIN }}" > _site/CNAME
+          cp _headers _site/_headers || true
           
-      - name: Create headers file
+      - name: Configure Cloudflare
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
         run: |
-          cat > _site/_headers << EOL
-          /*
-            Access-Control-Allow-Origin: *
-            X-Frame-Options: DENY
-            X-Content-Type-Options: nosniff
-            Referrer-Policy: strict-origin-when-cross-origin
-            Strict-Transport-Security: max-age=31536000; includeSubDomains
-            Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'
-            Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
-          EOL
+          # Update DNS record
+          curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/dns_records" \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{
+              "type": "CNAME",
+              "name": "ghostsec.org",
+              "content": "${{ github.repository_owner }}.github.io",
+              "proxied": true
+            }'
+
+          # Configure SSL
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/settings/ssl" \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data '{"value":"full"}'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
