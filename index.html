@@ -173,8 +173,27 @@
 
         <section id="games" class="games">
             <h2>Interactive Learning</h2>
-            <p class="section-description">Test your Linux command-line skills with our interactive terminal game.</p>
-            <div id="gameContainer"></div>
+            <p class="section-description">Test your skills with our interactive games.</p>
+            
+            <!-- Terminal Game -->
+            <div class="game-container">
+                <h3>Linux Terminal Game</h3>
+                <p>Practice your Linux command-line skills in this interactive terminal.</p>
+                <div id="terminalGameContainer"></div>
+            </div>
+
+            <!-- Kernel Defender Game -->
+            <div class="game-container">
+                <h3>Kernel Defender</h3>
+                <p>Protect your system from malicious processes in this action-packed game!</p>
+                <div id="kernelDefenderContainer">
+                    <canvas id="kernelDefenderCanvas"></canvas>
+                    <div class="game-controls">
+                        <p>Controls: Use Left/Right arrows to move</p>
+                        <button id="startKernelDefender">Start Game</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="contact" class="contact">
@@ -201,6 +220,7 @@
     </footer>
     <script src="js/navigation.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/kernel-defender.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

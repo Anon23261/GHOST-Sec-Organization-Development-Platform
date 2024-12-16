@@ -208,36 +208,150 @@
 }
 
 .victory-screen {
-    text-align: center;
+    background: linear-gradient(135deg, #1a1f3c 0%, #2a3f7c 100%);
     padding: 2rem;
-    background: #2a2a2a;
-    border-radius: 8px;
-    border: 1px solid #00ff00;
+    border-radius: 15px;
+    color: #fff;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .victory-screen h1 {
-    color: #00ff00;
-    margin: 0 0 1rem 0;
+    font-size: 2.5em;
+    margin-bottom: 1rem;
+    color: #ffd700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.victory-screen p {
-    color: #ffffff;
-    margin-bottom: 1.5rem;
+.achievement-summary {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
 }
 
-.victory-screen button {
-    background: #00ff00;
-    color: #000000;
+.achievement-category {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.achievement-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.achievement-category h3 {
+    color: #7fdbff;
+    margin-bottom: 1rem;
+    font-size: 1.3em;
+}
+
+.achievement-category ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.achievement-category li {
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.achievement-category li.achievement-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.achievement-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.mastery-level {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.mastery-bar {
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.mastery-progress {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    animation: fillProgress 1.5s ease-out forwards;
+    transform-origin: left;
+}
+
+@keyframes fillProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+.congratulation-message {
+    font-size: 1.2em;
+    color: #7fdbff;
+    margin: 2rem 0;
+    line-height: 1.6;
+}
+
+.victory-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.victory-buttons button {
+    padding: 1rem 2rem;
+    font-size: 1.1em;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.victory-screen button:hover {
-    background: #00cc00;
+.restart-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.docs-btn {
+    background: #2196F3;
+    color: white;
+}
+
+.victory-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon {
+    font-size: 1.2em;
 }
 
 .login-required {
@@ -264,4 +378,70 @@
 
 .login-required a:hover {
     text-decoration: underline;
+}
+
+.game-container {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-container h3 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.game-container p {
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+#terminalGameContainer {
+    width: 100%;
+    min-height: 400px;
+    background-color: #000;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#kernelDefenderContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#kernelDefenderCanvas {
+    width: 800px;
+    height: 600px;
+    background-color: #000;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.game-controls {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.game-controls p {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#startKernelDefender {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#startKernelDefender:hover {
+    background-color: #45a049;
 }

@@ -1,0 +1,404 @@
+{
+    "levels": [
+        {
+            "id": 1,
+            "title": "Getting Started with Slackware",
+            "description": "Welcome to Slackware Linux! Let's begin by learning basic system navigation and checking system information.",
+            "objectives": [
+                "Check the Slackware version",
+                "View system information",
+                "List current directory contents"
+            ],
+            "commands": [
+                "cat /etc/slackware-version",
+                "uname -a",
+                "ls -la"
+            ],
+            "hints": [
+                "Use 'cat' to view file contents",
+                "The 'uname' command shows system information",
+                "'ls -la' shows detailed directory contents"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Package Management Basics",
+            "description": "Learn how to work with Slackware's package management system using pkgtool and installpkg.",
+            "objectives": [
+                "List installed packages",
+                "Search for a package",
+                "View package information"
+            ],
+            "commands": [
+                "ls /var/log/packages",
+                "find /var/log/packages -name \"gcc*\"",
+                "less /var/log/packages/gcc-11.2.0-x86_64-1"
+            ],
+            "hints": [
+                "Package information is stored in /var/log/packages",
+                "Use 'find' to search for specific packages",
+                "'less' allows you to view file contents"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Source Code Management",
+            "description": "Set up your development environment and learn to manage source code directories.",
+            "objectives": [
+                "Create source directory",
+                "Set up build environment",
+                "Check build tools"
+            ],
+            "commands": [
+                "mkdir -p /usr/src/slackbuilds",
+                "export MAKEFLAGS=-j$(nproc)",
+                "gcc --version"
+            ],
+            "hints": [
+                "'mkdir -p' creates parent directories if needed",
+                "MAKEFLAGS controls parallel compilation",
+                "Check GCC version for compatibility"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "SlackBuild Scripts",
+            "description": "Learn to create and modify SlackBuild scripts for package creation.",
+            "objectives": [
+                "Create a basic SlackBuild",
+                "Set execution permissions",
+                "View script template"
+            ],
+            "commands": [
+                "cp /usr/share/mkinitrd/template.SlackBuild ./mypackage.SlackBuild",
+                "chmod +x mypackage.SlackBuild",
+                "cat mypackage.SlackBuild"
+            ],
+            "hints": [
+                "Use template as starting point",
+                "Make script executable with chmod",
+                "Review script contents before editing"
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Dependency Resolution",
+            "description": "Learn to handle package dependencies and create proper build order.",
+            "objectives": [
+                "Check dependencies",
+                "List required libraries",
+                "View shared library info"
+            ],
+            "commands": [
+                "ldd /usr/bin/gcc",
+                "ldconfig -v",
+                "pkg-config --list-all"
+            ],
+            "hints": [
+                "'ldd' shows library dependencies",
+                "'ldconfig' updates library cache",
+                "'pkg-config' helps with build requirements"
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Kernel Configuration",
+            "description": "Configure and prepare for kernel compilation in Slackware.",
+            "objectives": [
+                "Copy kernel config",
+                "Prepare kernel source",
+                "Check kernel version"
+            ],
+            "commands": [
+                "cp /proc/config.gz /usr/src/linux/",
+                "cd /usr/src/linux && make mrproper",
+                "uname -r"
+            ],
+            "hints": [
+                "Current kernel config is in /proc/config.gz",
+                "'make mrproper' cleans source tree",
+                "Check running kernel version"
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Kernel Compilation",
+            "description": "Learn the process of compiling a custom kernel for Slackware.",
+            "objectives": [
+                "Configure kernel",
+                "Compile kernel",
+                "Install modules"
+            ],
+            "commands": [
+                "make menuconfig",
+                "make -j$(nproc)",
+                "make modules_install"
+            ],
+            "hints": [
+                "menuconfig provides GUI interface",
+                "Use multiple cores for faster compilation",
+                "Install modules before kernel"
+            ]
+        },
+        {
+            "id": 8,
+            "title": "Initrd Creation",
+            "description": "Create and customize initial ramdisk for your custom kernel.",
+            "objectives": [
+                "Create initrd directory",
+                "Generate initrd",
+                "Verify initrd"
+            ],
+            "commands": [
+                "mkdir -p /boot/initrd",
+                "mkinitrd -c -k 5.15.0 -m ext4",
+                "file /boot/initrd.gz"
+            ],
+            "hints": [
+                "initrd directory stores ramdisk images",
+                "Specify kernel version and filesystem",
+                "Verify initrd file type"
+            ]
+        },
+        {
+            "id": 9,
+            "title": "Boot Loader Configuration",
+            "description": "Configure LILO or GRUB to boot your custom kernel.",
+            "objectives": [
+                "Edit boot config",
+                "Update boot loader",
+                "Verify configuration"
+            ],
+            "commands": [
+                "vi /etc/lilo.conf",
+                "lilo -v",
+                "cat /proc/cmdline"
+            ],
+            "hints": [
+                "Carefully edit boot loader config",
+                "Update LILO after changes",
+                "Verify current boot parameters"
+            ]
+        },
+        {
+            "id": 10,
+            "title": "System Optimization",
+            "description": "Optimize system performance and resource usage.",
+            "objectives": [
+                "Check system resources",
+                "Optimize memory usage",
+                "Monitor processes"
+            ],
+            "commands": [
+                "free -m",
+                "sysctl -a",
+                "top"
+            ],
+            "hints": [
+                "Monitor memory usage",
+                "View kernel parameters",
+                "Check running processes"
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Custom Package Creation",
+            "description": "Create custom packages for your Slackware system.",
+            "objectives": [
+                "Prepare package structure",
+                "Create package description",
+                "Build package"
+            ],
+            "commands": [
+                "mkdir -p package/usr/bin",
+                "makepkg -l y -c n package.tgz",
+                "installpkg package.tgz"
+            ],
+            "hints": [
+                "Create proper directory structure",
+                "Use makepkg to create package",
+                "Test installation"
+            ]
+        },
+        {
+            "id": 12,
+            "title": "System Hardening",
+            "description": "Implement security measures and system hardening techniques.",
+            "objectives": [
+                "Check permissions",
+                "Set security policies",
+                "Update passwords"
+            ],
+            "commands": [
+                "find / -perm -4000",
+                "chmod 700 /etc/shadow",
+                "passwd root"
+            ],
+            "hints": [
+                "Find SUID files",
+                "Secure sensitive files",
+                "Update root password"
+            ]
+        },
+        {
+            "id": 13,
+            "title": "Network Configuration",
+            "description": "Configure network settings and services.",
+            "objectives": [
+                "Configure network interface",
+                "Set up DNS",
+                "Test connectivity"
+            ],
+            "commands": [
+                "ifconfig eth0 up",
+                "vi /etc/resolv.conf",
+                "ping -c 4 8.8.8.8"
+            ],
+            "hints": [
+                "Activate network interface",
+                "Configure DNS resolution",
+                "Test network connection"
+            ]
+        },
+        {
+            "id": 14,
+            "title": "Service Management",
+            "description": "Manage system services and daemons.",
+            "objectives": [
+                "List services",
+                "Start service",
+                "Check status"
+            ],
+            "commands": [
+                "ls /etc/rc.d",
+                "/etc/rc.d/rc.httpd start",
+                "ps aux | grep httpd"
+            ],
+            "hints": [
+                "Services are in rc.d",
+                "Start services with rc scripts",
+                "Check process status"
+            ]
+        },
+        {
+            "id": 15,
+            "title": "System Backup",
+            "description": "Create and manage system backups.",
+            "objectives": [
+                "Create backup directory",
+                "Backup system files",
+                "Verify backup"
+            ],
+            "commands": [
+                "mkdir /backup",
+                "tar -czf /backup/system.tar.gz /etc",
+                "ls -lh /backup"
+            ],
+            "hints": [
+                "Create backup location",
+                "Use tar for archiving",
+                "Verify backup size"
+            ]
+        },
+        {
+            "id": 16,
+            "title": "Custom Repository",
+            "description": "Create and manage a custom package repository.",
+            "objectives": [
+                "Create repository structure",
+                "Generate metadata",
+                "Update repository"
+            ],
+            "commands": [
+                "mkdir -p /var/www/repo",
+                "generate-slackpkg-metadata.sh",
+                "rsync -av packages/ /var/www/repo/"
+            ],
+            "hints": [
+                "Set up repository directory",
+                "Create repository metadata",
+                "Sync package files"
+            ]
+        },
+        {
+            "id": 17,
+            "title": "System Monitoring",
+            "description": "Implement system monitoring and logging.",
+            "objectives": [
+                "Configure logging",
+                "Monitor system logs",
+                "Set up alerts"
+            ],
+            "commands": [
+                "vi /etc/syslog.conf",
+                "tail -f /var/log/messages",
+                "logwatch --detail high"
+            ],
+            "hints": [
+                "Configure syslog",
+                "Monitor logs in real-time",
+                "Use logwatch for analysis"
+            ]
+        },
+        {
+            "id": 18,
+            "title": "Performance Tuning",
+            "description": "Fine-tune system performance and resource allocation.",
+            "objectives": [
+                "Profile system",
+                "Optimize settings",
+                "Monitor performance"
+            ],
+            "commands": [
+                "vmstat 1 10",
+                "nice -n -10 make -j$(nproc)",
+                "iostat -x 1 5"
+            ],
+            "hints": [
+                "Monitor virtual memory",
+                "Adjust process priority",
+                "Check I/O statistics"
+            ]
+        },
+        {
+            "id": 19,
+            "title": "Advanced Package Management",
+            "description": "Advanced package management and dependency handling.",
+            "objectives": [
+                "Upgrade packages",
+                "Handle conflicts",
+                "Clean package cache"
+            ],
+            "commands": [
+                "upgradepkg --install-new *.t?z",
+                "removepkg old-package",
+                "clean-system.sh"
+            ],
+            "hints": [
+                "Upgrade with new package installation",
+                "Remove conflicting packages",
+                "Clean up old packages"
+            ]
+        },
+        {
+            "id": 20,
+            "title": "System Distribution",
+            "description": "Prepare your custom Slackware distribution for distribution.",
+            "objectives": [
+                "Create ISO image",
+                "Generate checksums",
+                "Test installation"
+            ],
+            "commands": [
+                "mkisofs -o custom-slack.iso /distribution",
+                "sha256sum custom-slack.iso > custom-slack.iso.sha256",
+                "qemu-system-x86_64 -cdrom custom-slack.iso"
+            ],
+            "hints": [
+                "Create bootable ISO",
+                "Verify file integrity",
+                "Test in virtual machine"
+            ]
+        }
+    ]
+}
