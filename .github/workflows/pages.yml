@@ -15,6 +15,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  BUILD_TYPE: Release
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -37,12 +42,29 @@ jobs:
           sudo apt-get install -y libsfml-dev cmake build-essential
           npm install
 
+      - name: Build C++ game
+        run: |
+          cd cpp
+          mkdir -p build
+          cd build
+          cmake ..
+          cmake --build . --config ${{env.BUILD_TYPE}}
+          cd ../..
+          mkdir -p dist/cpp
+          cp cpp/build/game dist/cpp/ || true
+          cp -r cpp/assets dist/cpp/ || true
+
+      - name: Build web assets
+        run: |
+          mkdir -p dist
+          cp -r index.html css js images dist/ || true
+          npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
-
-      - name: Build
-        run: |
-          npm run build
+        with:
+          enablement: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
