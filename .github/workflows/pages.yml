@@ -6,20 +6,21 @@ on:
       - main
   workflow_dispatch:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write
+  deployments: write
+  statuses: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,20 +36,32 @@ jobs:
         uses: actions/configure-pages@v4
         with:
           enablement: true
+          token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Install dependencies
         run: composer install --no-dev --optimize-autoloader
         
       - name: Build with PHP
         run: |
-          mkdir _site
-          cp -r index.html css js images backend vendor _site/
+          mkdir -p _site
+          cp -r index.html css js images backend vendor _site/ || true
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
-          
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
