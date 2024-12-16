@@ -1,120 +1,134 @@
-# 🌐 GHOST Sec Organization Platform
+# GHOST Sec Organization Development Platform
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)
-![MariaDB](https://img.shields.io/badge/MariaDB-10.5%2B-orange)
+## Overview
+This comprehensive platform showcases full-stack development, operating system development, and interactive gaming components. The project serves as a demonstration of various technical capabilities including web development, system programming, and game development.
 
-## 🚀 Overview
+## Core Components
 
-Welcome to the GHOST Sec Organization Platform - a cutting-edge web platform focused on open-source operating system development and cybersecurity education. Our platform combines interactive learning with robust security features to create an engaging user experience.
+### 1. Web Platform
+- **Frontend**: Modern responsive design using HTML5, CSS3, and JavaScript
+- **Authentication**: Secure user management system
+- **Interactive UI**: Dynamic content loading and smooth animations
+- **GitHub Integration**: Real-time repository statistics
 
-## ✨ Features
+### 2. Operating System Development
+- Process Management Simulation
+- Memory Management Tools
+- System Resource Monitoring
+- Bootloader Development Interface
 
-### 🔐 User Authentication
-- Secure login and registration system
-- Password hashing and robust session management
-- Responsive modal interface for seamless user experience
+### 3. C++ Game Engine
+- Real-time Process Visualization
+- Memory Management Simulation
+- System Resource Allocation Game
+- Performance Optimization Challenges
 
-### 🎮 Interactive Games
-- **OS Process Management Game**: Learn about operating system concepts through interactive JavaScript gameplay
-- **Kernel Defender**: An exciting C++ game built with SFML graphics library
-- Educational content wrapped in engaging gameplay
+## Technology Stack
 
-### 📬 Contact System
-- Direct communication channels
-- Secure message handling
-- Real-time email notifications
+### Frontend
+- HTML5/CSS3
+- JavaScript (ES6+)
+- Flexbox/Grid Layout
+- Font Awesome Icons
 
-## 🛠️ Technology Stack
+### Backend Components
+- C++ Core Engine
+- System-level Programming
+- Memory Management
+- Process Scheduling
 
-- **Frontend**:
-  - HTML5, CSS3 with Flexbox & Grid
-  - Modern JavaScript (ES6+)
-  - Responsive Design
+### Development Tools
+- Git/GitHub
+- GitHub Actions (CI/CD)
+- VS Code Integration
+- Cross-platform Compatibility
 
-- **Backend**:
-  - PHP 7.4+
-  - MariaDB 10.5+
-  - Composer Package Manager
+## Features
 
-- **Libraries & Dependencies**:
-  - PHPMailer for email functionality
-  - SFML for C++ game graphics
-  - dotenv for environment management
+### Web Platform
+- Responsive Design
+- User Authentication
+- Interactive Tutorials
+- Real-time Statistics
+- Process Management Game
 
-## 🚀 Quick Start
+### OS Development Tools
+- Bootloader Building Interface
+- System Resource Monitor
+- Memory Management Simulator
+- Process Scheduling Visualizer
 
-1. **Clone the repository**
-   ```bash
-   git clone [repository-url]
-   cd ghost-sec-platform
-   ```
+### C++ Game Integration
+- Real-time Process Visualization
+- Resource Management Challenges
+- Performance Optimization Games
+- System Architecture Learning Tools
 
-2. **Install dependencies**
-   ```bash
-   composer install
-   ```
+## Getting Started
 
-3. **Set up the database**
-   ```bash
-   sudo mysql -e "source backend/database.sql"
-   ```
-
-4. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-5. **Start the development server**
-   ```bash
-   php -S localhost:8000
-   ```
-
-## 🔧 Configuration
-
-### Database Settings
-```env
-DB_HOST=localhost
-DB_NAME=ghost_sec_db
-DB_USER=root
-DB_PASS=your_password
+1. Clone the repository:
+```bash
+git clone https://github.com/Anon23261/GHOST-Sec-Platform.git
 ```
 
-### SMTP Configuration
-```env
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=ghostsector@icloud.com
-SMTP_PASS=your_app_password
+2. Install dependencies:
+```bash
+# For web components
+npm install
+
+# For C++ components
+make install
 ```
 
-## 🤝 Contributing
+3. Build the project:
+```bash
+# Web platform
+npm run build
 
-We welcome contributions! Please feel free to submit a Pull Request.
+# C++ components
+make build
+```
 
+4. Run the development server:
+```bash
+npm start
+```
+
+## Development
+
+### Web Platform
+The web platform is built using modern web technologies and follows best practices for responsive design and user experience.
+
+### OS Development
+The operating system development tools provide hands-on experience with:
+- Bootloader development
+- Process management
+- Memory allocation
+- System resource handling
+
+### C++ Game Engine
+The C++ game engine features:
+- Real-time process visualization
+- Memory management simulation
+- Resource allocation challenges
+- Performance optimization tools
+
+## Contributing
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
+## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
+## Contact
+- Website: [https://ghostsec.org](https://ghostsec.org)
+- GitHub: [@Anon23261](https://github.com/Anon23261)
+- Email: contact@ghostsec.org
 
-- Email: ghostsector@icloud.com
-- Phone: 480-235-3187
-
-## 🌟 Acknowledgments
-
-- SFML Development Team
-- MariaDB Community
-- PHP Community
-- All our contributors and supporters
-
----
-
-<p align="center">Made with ❤️ by GHOST Sec Organization</p>
+## Acknowledgments
+- GHOST Sec Organization Team
+- Contributors and Maintainers
+- Open Source Community
