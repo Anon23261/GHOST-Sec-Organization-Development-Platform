@@ -21,25 +21,18 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Verify domain
+      - name: Configure DNS
         run: |
-          # Check if domain is accessible
-          if curl -s -o /dev/null -w "%{http_code}" https://ghostsec.org/ | grep -q "200\|301\|302"; then
-            echo "Domain is accessible"
-          else
-            # If not accessible, try to diagnose
-            echo "Checking DNS..."
-            dig ghostsec.org
-            echo "Checking HTTPS..."
-            curl -v https://ghostsec.org/
-          fi
-
-      - name: Build site
-        run: |
+          # Verify DNS settings
+          echo "Checking DNS configuration..."
+          host ghostsec.org || true
+          
+          # Create site directory
           mkdir -p _site
           cp -r * _site/ || true
+          
+          # Configure domain
           echo "ghostsec.org" > _site/CNAME
-          cp _headers _site/_headers || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
