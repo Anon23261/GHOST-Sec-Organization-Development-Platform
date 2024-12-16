@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  actions: write
+  deployments: write
+  statuses: write
+  checks: write
 
 # Allow only one concurrent deployment
 concurrency:
@@ -19,7 +23,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -29,7 +33,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -45,13 +55,11 @@ jobs:
       - name: Build C++ game
         run: |
           cd cpp
-          mkdir -p build
-          cd build
-          cmake ..
-          cmake --build . --config ${{env.BUILD_TYPE}}
-          cd ../..
+          chmod +x build.sh
+          ./build.sh
+          cd ..
           mkdir -p dist/cpp
-          cp cpp/build/game dist/cpp/ || true
+          cp cpp/build/process_game dist/cpp/ || true
           cp -r cpp/assets dist/cpp/ || true
 
       - name: Build web assets
@@ -61,9 +69,12 @@ jobs:
           npm run build
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v3
         with:
           enablement: true
+          static_site_generator: next
+          generator_config_file: ''
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
@@ -76,5 +87,3 @@ jobs:
         uses: actions/deploy-pages@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: github-pages
-          preview: false
