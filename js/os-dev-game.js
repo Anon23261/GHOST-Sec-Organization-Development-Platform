@@ -34,6 +34,8 @@ class OSDevGame {
         // Bootloader selection
         const bootloaderSelect = document.createElement('select');
         bootloaderSelect.className = 'bootloader-select';
+        bootloaderSelect.id = 'bootloader-select';
+        bootloaderSelect.name = 'bootloader';
         bootloaderSelect.innerHTML = `
             <option value="lilo">LILO</option>
             <option value="grub">GRUB</option>
@@ -75,7 +77,7 @@ class OSDevGame {
             
             <div class="section">
                 <h4>Init System</h4>
-                <select class="init-select">
+                <select class="init-select" id="init-system" name="init-system">
                     <option value="sysvinit">SysVinit</option>
                     <option value="systemd">systemd</option>
                 </select>
@@ -84,21 +86,21 @@ class OSDevGame {
             <div class="section">
                 <h4>Optional Packages</h4>
                 <div class="package-list">
-                    <label><input type="checkbox" value="X11"> X Window System</label>
-                    <label><input type="checkbox" value="kde"> KDE Plasma</label>
-                    <label><input type="checkbox" value="xfce"> XFCE</label>
-                    <label><input type="checkbox" value="dev-tools"> Development Tools</label>
-                    <label><input type="checkbox" value="network"> Network Tools</label>
+                    <label><input type="checkbox" id="pkg-x11" name="pkg-x11" value="X11"> X Window System</label>
+                    <label><input type="checkbox" id="pkg-kde" name="pkg-kde" value="kde"> KDE Plasma</label>
+                    <label><input type="checkbox" id="pkg-xfce" name="pkg-xfce" value="xfce"> XFCE</label>
+                    <label><input type="checkbox" id="pkg-dev" name="pkg-dev" value="dev-tools"> Development Tools</label>
+                    <label><input type="checkbox" id="pkg-net" name="pkg-net" value="network"> Network Tools</label>
                 </div>
             </div>
             
             <div class="section">
                 <h4>Kernel Modules</h4>
                 <div class="module-list">
-                    <label><input type="checkbox" value="nvidia"> NVIDIA Drivers</label>
-                    <label><input type="checkbox" value="amd"> AMD Drivers</label>
-                    <label><input type="checkbox" value="wifi"> WiFi Support</label>
-                    <label><input type="checkbox" value="bluetooth"> Bluetooth Support</label>
+                    <label><input type="checkbox" id="mod-nvidia" name="mod-nvidia" value="nvidia"> NVIDIA Drivers</label>
+                    <label><input type="checkbox" id="mod-amd" name="mod-amd" value="amd"> AMD Drivers</label>
+                    <label><input type="checkbox" id="mod-wifi" name="mod-wifi" value="wifi"> WiFi Support</label>
+                    <label><input type="checkbox" id="mod-bt" name="mod-bt" value="bluetooth"> Bluetooth Support</label>
                 </div>
             </div>
             

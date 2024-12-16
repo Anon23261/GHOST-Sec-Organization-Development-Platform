@@ -515,6 +515,79 @@ body {
   font-size: 1.5rem;
 }
 
+/* Contact Section */
+.contact {
+    padding: 2rem;
+    margin: 2rem 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.contact h2 {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-item {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.1);
+}
+
+.contact-item i {
+    font-size: 2.5rem;
+    color: #00ff00;
+    margin-bottom: 1rem;
+}
+
+.contact-item p {
+    color: #ccc;
+    margin: 0.5rem 0;
+}
+
+.contact-item a {
+    color: #00ff00;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-item a:hover {
+    color: #00cc00;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+    }
+    
+    .contact-item {
+        min-width: 100%;
+    }
+}
+
 /* Footer */
 footer {
   background: var(--background-dark);
