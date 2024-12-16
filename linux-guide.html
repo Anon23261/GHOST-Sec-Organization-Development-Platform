@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://*; connect-src 'self' https://api.github.com">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Feature-Policy" content="camera 'none'; geolocation 'none'; microphone 'none'">
+    <title>Linux Guide - GHOST Sec</title>
+    <link rel="stylesheet" href="css/flexbox-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            padding: 2rem;
+            margin: 1rem 0;
+            background: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .content-section h2 {
+            color: #00ff00;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: #00cc00;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .content-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: #000;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 3px solid #00ff00;
+        }
+        
+        .warning {
+            background: #332200;
+            padding: 1rem;
+            border-left: 3px solid #ffaa00;
+            margin: 1rem 0;
+        }
+        
+        .tip {
+            background: #003322;
+            padding: 1rem;
+            border-left: 3px solid #00ffaa;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">GHOST Sec</a>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="linux-guide.html" class="active">Linux Guide</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Advanced Linux Guide</h1>
+            
+            <section class="content-section" id="slackware">
+                <h2>Slackware Linux</h2>
+                <p>Slackware is one of the oldest Linux distributions still in active development, known for its simplicity, stability, and adherence to Unix principles.</p>
+                
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Simplicity and stability focused</li>
+                    <li>No automatic dependency resolution</li>
+                    <li>Traditional Unix-like system structure</li>
+                    <li>Conservative approach to package updates</li>
+                </ul>
+                
+                <h3>Package Management</h3>
+                <div class="code-block">
+                    # Install a package
+                    installpkg package.tgz
+                    
+                    # Remove a package
+                    removepkg package
+                    
+                    # Upgrade a package
+                    upgradepkg package.tgz
+                </div>
+            </section>
+
+            <section class="content-section" id="lfs">
+                <h2>Linux From Scratch (LFS)</h2>
+                <p>Linux From Scratch is a project that provides step-by-step instructions for building your own custom Linux system from source code.</p>
+                
+                <h3>Build Process Overview</h3>
+                <ol>
+                    <li>Prepare the host system</li>
+                    <li>Create a new partition and file system</li>
+                    <li>Download source packages</li>
+                    <li>Create a temporary toolchain</li>
+                    <li>Build the base system</li>
+                    <li>Configure the system</li>
+                </ol>
+                
+                <div class="tip">
+                    <strong>Tip:</strong> Always follow the LFS book version that matches your host system's capabilities and requirements.
+                </div>
+            </section>
+
+            <section class="content-section" id="bootloaders">
+                <h2>Bootloaders</h2>
+                
+                <h3>LILO (Linux Loader)</h3>
+                <p>LILO is one of the oldest Linux bootloaders, known for its simplicity and reliability.</p>
+                
+                <div class="code-block">
+                    # Example lilo.conf
+                    boot = /dev/sda
+                    map = /boot/map
+                    install = /boot/boot.b
+                    prompt
+                    timeout = 50
+                    
+                    image = /boot/vmlinuz
+        root = /dev/sda1
+        label = linux
+                </div>
+                
+                <h3>GRUB (Grand Unified Bootloader)</h3>
+                <p>GRUB is the most widely used bootloader in modern Linux distributions, offering more features and flexibility than LILO.</p>
+                
+                <div class="code-block">
+                    # Example grub.cfg entry
+                    menuentry "Linux" {
+        set root=(hd0,1)
+        linux /boot/vmlinuz root=/dev/sda1
+        initrd /boot/initrd.img
+    }
+                </div>
+                
+                <div class="warning">
+                    <strong>Warning:</strong> Always keep a backup of your working bootloader configuration before making changes.
+                </div>
+            </section>
+
+            <section class="content-section" id="kernel">
+                <h2>Linux Kernel</h2>
+                <p>The Linux kernel is the core component of the operating system, managing hardware resources and providing essential services.</p>
+                
+                <h3>Kernel Compilation Steps</h3>
+                <div class="code-block">
+                    # Download kernel source
+                    wget https://kernel.org/pub/linux/kernel/v5.x/linux-5.x.tar.xz
+                    
+                    # Configure kernel
+                    make menuconfig
+                    
+                    # Build kernel
+                    make
+                    make modules
+                    make modules_install
+                    make install
+                </div>
+                
+                <h3>Key Kernel Features</h3>
+                <ul>
+                    <li>Monolithic kernel architecture</li>
+                    <li>Loadable kernel modules</li>
+                    <li>Preemptive multitasking</li>
+                    <li>Advanced memory management</li>
+                    <li>Extensive hardware support</li>
+                </ul>
+                
+                <div class="tip">
+                    <strong>Tip:</strong> When compiling a custom kernel, start with your distribution's kernel configuration as a base.
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 GHOST Sec Organization. All rights reserved.</p>
+    </footer>
+</body>
+</html>

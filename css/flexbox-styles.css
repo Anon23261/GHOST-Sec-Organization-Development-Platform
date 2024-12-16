@@ -17,8 +17,10 @@
 }
 
 body {
-  background-color: var(--background-dark);
-  color: var(--text-color);
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
   line-height: 1.6;
 }
 
@@ -89,6 +91,44 @@ body {
 .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Project Grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.repo-stats {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: #00ff00;
+}
+
+.repo-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.repo-stats .error {
+  color: #ff6b6b;
+  font-style: italic;
 }
 
 /* Game Container */

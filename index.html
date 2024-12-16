@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://*; connect-src 'self' https://api.github.com">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Feature-Policy" content="camera 'none'; geolocation 'none'; microphone 'none'">
     <meta http-equiv="Feature-Policy" content="camera 'none'; geolocation 'none'; microphone 'none'">
     <title>GHOST Sec Organization</title>
@@ -20,10 +20,13 @@
                 <img src="images/logo.svg" alt="GHOST Sec Logo" height="50">
             </div>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#os-dev">OS Development</a>
-                <a href="#games">Games</a>
-                <a href="#contact">Contact</a>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="linux-guide.html">Linux Guide</a></li>
+                    <li><a href="#os-dev">OS Development</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
                 <button class="login-btn">Login</button>
                 <button class="register-btn">Register</button>
             </div>
@@ -37,19 +40,22 @@
         </section>
 
         <section id="os-dev" class="features">
-            <h2>OS Development</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Bootloader Development</h3>
-                    <p>Learn about UEFI and legacy bootloader development</p>
+            <h2>OS Development Projects</h2>
+            <div class="project-grid">
+                <div class="project-card" data-repo="Anon23261/Official-ghostC-OS">
+                    <h3>Official GHOST-C OS</h3>
+                    <p>Our flagship operating system project.</p>
+                    <div class="repo-stats">Loading...</div>
                 </div>
-                <div class="feature-card">
-                    <h3>Kernel Programming</h3>
-                    <p>Explore kernel development and system programming</p>
+                <div class="project-card" data-repo="Anon23261/FirstBootloaderBuild">
+                    <h3>First Bootloader Build</h3>
+                    <p>Custom bootloader implementation.</p>
+                    <div class="repo-stats">Loading...</div>
                 </div>
-                <div class="feature-card">
-                    <h3>System Resources</h3>
-                    <p>Understand memory management and process scheduling</p>
+                <div class="project-card" data-repo="Anon23261/GHOSTc-OS">
+                    <h3>GHOST-C OS</h3>
+                    <p>Advanced operating system features.</p>
+                    <div class="repo-stats">Loading...</div>
                 </div>
             </div>
         </section>
@@ -125,5 +131,6 @@
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/repo-stats.js"></script>
 </body>
 </html>
