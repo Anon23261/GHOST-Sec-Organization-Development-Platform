@@ -10,57 +10,36 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  DOMAIN: ghostsec.org
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Create _site directory
+      - name: Verify domain
+        run: |
+          # Check if domain is accessible
+          if curl -s -o /dev/null -w "%{http_code}" https://ghostsec.org/ | grep -q "200\|301\|302"; then
+            echo "Domain is accessible"
+          else
+            # If not accessible, try to diagnose
+            echo "Checking DNS..."
+            dig ghostsec.org
+            echo "Checking HTTPS..."
+            curl -v https://ghostsec.org/
+          fi
+
+      - name: Build site
         run: |
           mkdir -p _site
           cp -r * _site/ || true
-          
-      - name: Configure DNS
-        run: |
-          echo "${{ env.DOMAIN }}" > _site/CNAME
+          echo "ghostsec.org" > _site/CNAME
           cp _headers _site/_headers || true
-          
-      - name: Configure Cloudflare
-        env:
-          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-        run: |
-          # Update DNS record
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/dns_records" \
-            -H "Authorization: Bearer $CF_API_TOKEN" \
-            -H "Content-Type: application/json" \
-            --data '{
-              "type": "CNAME",
-              "name": "ghostsec.org",
-              "content": "${{ github.repository_owner }}.github.io",
-              "proxied": true
-            }'
-
-          # Configure SSL
-          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/settings/ssl" \
-            -H "Authorization: Bearer $CF_API_TOKEN" \
-            -H "Content-Type: application/json" \
-            --data '{"value":"full"}'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -78,6 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          timeout: 600000  # 10 minutes
-          error_count: 3  # Retry up to 3 times
