@@ -1,0 +1,267 @@
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Fira Code', monospace;
+}
+
+.level-progress {
+    text-align: center;
+    color: #00ff00;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.level-info {
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.level-header h2 {
+    color: #00ff00;
+    margin: 0 0 1rem 0;
+}
+
+.level-description {
+    color: #cccccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.objectives {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.objectives h3 {
+    color: #00ff00;
+    margin: 0 0 1rem 0;
+}
+
+.objectives ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.objectives li {
+    color: #ffffff;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.objectives li:before {
+    content: '→';
+    color: #00ff00;
+    margin-right: 0.5rem;
+}
+
+.game-terminal {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    height: 400px;
+    overflow-y: auto;
+}
+
+.terminal-output {
+    min-height: 300px;
+    margin-bottom: 1rem;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-prompt {
+    color: #00ff00;
+    margin-right: 0.5rem;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    flex: 1;
+    outline: none;
+}
+
+.command-line {
+    color: #ffffff;
+    margin: 0.5rem 0;
+}
+
+.success-message {
+    color: #00ff00;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.error-message {
+    color: #ff0000;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(255, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.hint-message {
+    color: #ffff00;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(255, 255, 0, 0.1);
+    border-radius: 4px;
+}
+
+.system-message {
+    color: #00ffff;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.game-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.hint-button,
+.reset-button {
+    background: transparent;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Fira Code', monospace;
+    transition: all 0.2s;
+}
+
+.hint-button:hover,
+.reset-button:hover {
+    background: #00ff00;
+    color: #000000;
+}
+
+.level-complete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #2a2a2a;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #00ff00;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    color: #00ff00;
+    margin: 0 0 1rem 0;
+}
+
+.modal-content p {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.next-level-btn {
+    background: #00ff00;
+    color: #000000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.next-level-btn:hover {
+    background: #00cc00;
+}
+
+.victory-screen {
+    text-align: center;
+    padding: 2rem;
+    background: #2a2a2a;
+    border-radius: 8px;
+    border: 1px solid #00ff00;
+}
+
+.victory-screen h1 {
+    color: #00ff00;
+    margin: 0 0 1rem 0;
+}
+
+.victory-screen p {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.victory-screen button {
+    background: #00ff00;
+    color: #000000;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.victory-screen button:hover {
+    background: #00cc00;
+}
+
+.login-required {
+    text-align: center;
+    padding: 2rem;
+    background: #2a2a2a;
+    border-radius: 8px;
+    border: 1px solid #00ff00;
+}
+
+.login-required h2 {
+    color: #00ff00;
+    margin: 0 0 1rem 0;
+}
+
+.login-required p {
+    color: #ffffff;
+}
+
+.login-required a {
+    color: #00ff00;
+    text-decoration: none;
+}
+
+.login-required a:hover {
+    text-decoration: underline;
+}

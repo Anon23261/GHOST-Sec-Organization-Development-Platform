@@ -1,0 +1,229 @@
+{
+    "levels": [
+        {
+            "id": 1,
+            "title": "Getting Started with Slackware",
+            "description": "Introduction to Slackware Linux and basic system requirements",
+            "objectives": [
+                "Download Slackware ISO",
+                "Verify system requirements",
+                "Create bootable USB drive"
+            ],
+            "commands": [
+                "dd if=slackware.iso of=/dev/sdX bs=4M",
+                "lsblk",
+                "fdisk -l"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Basic System Installation",
+            "description": "Installing the base Slackware system",
+            "objectives": [
+                "Partition disk",
+                "Format partitions",
+                "Install base system"
+            ],
+            "commands": [
+                "cfdisk /dev/sda",
+                "mkfs.ext4 /dev/sda1",
+                "setup"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "System Configuration",
+            "description": "Basic system configuration and network setup",
+            "objectives": [
+                "Configure network",
+                "Set root password",
+                "Create user account"
+            ],
+            "commands": [
+                "netconfig",
+                "passwd",
+                "adduser"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Package Management",
+            "description": "Understanding Slackware package management",
+            "objectives": [
+                "Install packages",
+                "Remove packages",
+                "Update system"
+            ],
+            "commands": [
+                "installpkg",
+                "removepkg",
+                "slackpkg update"
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Building the Development Environment",
+            "description": "Setting up development tools and compiler",
+            "objectives": [
+                "Install development tools",
+                "Configure compiler",
+                "Test build environment"
+            ],
+            "commands": [
+                "slackpkg install gcc",
+                "gcc --version",
+                "make --version"
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Kernel Configuration",
+            "description": "Configuring and building a custom kernel",
+            "objectives": [
+                "Download kernel source",
+                "Configure kernel",
+                "Build kernel"
+            ],
+            "commands": [
+                "wget kernel.org/latest",
+                "make menuconfig",
+                "make && make modules_install"
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Init System Basics",
+            "description": "Understanding and configuring the init system",
+            "objectives": [
+                "Configure init scripts",
+                "Manage services",
+                "Set runlevels"
+            ],
+            "commands": [
+                "chmod +x /etc/rc.d/rc.local",
+                "rc.local start",
+                "init 3"
+            ]
+        },
+        {
+            "id": 8,
+            "title": "System Libraries",
+            "description": "Managing system libraries and dependencies",
+            "objectives": [
+                "Install basic libraries",
+                "Configure dynamic linker",
+                "Test library paths"
+            ],
+            "commands": [
+                "ldconfig",
+                "ldd /bin/bash",
+                "nm -D /lib/libc.so"
+            ]
+        },
+        {
+            "id": 9,
+            "title": "User Space Programs",
+            "description": "Building essential user space programs",
+            "objectives": [
+                "Build core utilities",
+                "Install basic commands",
+                "Test functionality"
+            ],
+            "commands": [
+                "./configure",
+                "make",
+                "make install"
+            ]
+        },
+        {
+            "id": 10,
+            "title": "System Security",
+            "description": "Implementing basic system security",
+            "objectives": [
+                "Configure firewall",
+                "Set up SELinux",
+                "Implement access controls"
+            ],
+            "commands": [
+                "iptables -L",
+                "setenforce 1",
+                "chmod 750 /home/*"
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Boot Process",
+            "description": "Understanding and configuring the boot process",
+            "objectives": [
+                "Configure GRUB",
+                "Set up initrd",
+                "Optimize boot time"
+            ],
+            "commands": [
+                "grub-install",
+                "mkinitrd",
+                "systemctl analyze"
+            ]
+        },
+        {
+            "id": 12,
+            "title": "System Monitoring",
+            "description": "Setting up system monitoring and logging",
+            "objectives": [
+                "Configure syslog",
+                "Set up monitoring",
+                "Implement alerts"
+            ],
+            "commands": [
+                "vim /etc/syslog.conf",
+                "top",
+                "tail -f /var/log/messages"
+            ]
+        },
+        {
+            "id": 13,
+            "title": "Network Services",
+            "description": "Configuring basic network services",
+            "objectives": [
+                "Set up SSH server",
+                "Configure DNS",
+                "Implement DHCP"
+            ],
+            "commands": [
+                "sshd_config",
+                "named.conf",
+                "dhcpd.conf"
+            ]
+        },
+        {
+            "id": 14,
+            "title": "System Recovery",
+            "description": "Learning system recovery and backup procedures",
+            "objectives": [
+                "Create backup scripts",
+                "Set up recovery tools",
+                "Test recovery procedures"
+            ],
+            "commands": [
+                "tar -czf backup.tar.gz /etc",
+                "dd if=/dev/sda of=mbr.backup bs=512 count=1",
+                "fsck /dev/sda1"
+            ]
+        },
+        {
+            "id": 15,
+            "title": "Final Integration",
+            "description": "Final system integration and testing",
+            "objectives": [
+                "System stress testing",
+                "Performance tuning",
+                "Documentation"
+            ],
+            "commands": [
+                "stress-ng --cpu 8",
+                "nice -n -20 benchmark",
+                "man custom-commands"
+            ]
+        }
+    ]
+}
