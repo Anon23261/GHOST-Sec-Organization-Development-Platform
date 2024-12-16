@@ -26,7 +26,6 @@ async function fetchGitHubStats(repo) {
         updateRepoStats(repo, data);
     } catch (error) {
         console.log(`Error fetching stats for ${repo}:`, error);
-        // Handle the error gracefully - update UI to show error state
         const repoElement = document.querySelector(`[data-repo="${repo}"]`);
         if (repoElement) {
             const statsElement = repoElement.querySelector('.repo-stats');
@@ -43,9 +42,9 @@ function updateRepoStats(repo, data) {
         const statsElement = repoElement.querySelector('.repo-stats');
         if (statsElement) {
             statsElement.innerHTML = `
-                <span>⭐ ${data.stargazers_count}</span>
-                <span>🔄 ${data.forks_count}</span>
-                <span>👁️ ${data.watchers_count}</span>
+                <span title="Stars">⭐ ${data.stargazers_count}</span>
+                <span title="Forks">🔄 ${data.forks_count}</span>
+                <span title="Watchers">👁️ ${data.watchers_count}</span>
             `;
         }
     }
