@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://*; connect-src 'self' https://api.github.com">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="Feature-Policy" content="camera 'none'; geolocation 'none'; microphone 'none'">
     <title>Linux Guide - GHOST Sec</title>
     <link rel="stylesheet" href="css/flexbox-styles.css">
@@ -109,17 +108,26 @@
                 
                 <h3>Package Management</h3>
                 <div class="code-block">
+                    # Update package list
+                    slackpkg update
+                    
+                    # Update GPG keys
+                    slackpkg update gpg
+                    
                     # Install a package
-                    installpkg package.tgz
+                    slackpkg install package_name
                     
                     # Remove a package
-                    removepkg package
+                    slackpkg remove package_name
                     
-                    # Upgrade a package
-                    upgradepkg package.tgz
+                    # Upgrade all packages
+                    slackpkg upgrade-all
                     
-                    # Convert rpm to Slackware package
-                    rpm2tgz package.rpm
+                    # Find package
+                    slackpkg search package_name
+                    
+                    # Clean package cache
+                    slackpkg clean-system
                 </div>
 
                 <h3>System Specifications</h3>

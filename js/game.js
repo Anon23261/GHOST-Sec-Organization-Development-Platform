@@ -42,6 +42,9 @@ class TerminalGame {
         const input = document.createElement('input');
         input.type = 'text';
         input.className = 'terminal-input';
+        input.id = 'terminal-command-input';
+        input.name = 'command';
+        input.setAttribute('autocomplete', 'off');
         inputLine.appendChild(input);
 
         terminal.appendChild(inputLine);
