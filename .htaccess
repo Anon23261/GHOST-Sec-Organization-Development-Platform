@@ -1,0 +1,36 @@
+# Security Headers
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:;"
+Header always set X-Frame-Options "DENY"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always unset Permissions-Policy
+
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Custom error pages
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect against XSS attacks
+Header set X-XSS-Protection "1; mode=block"
+
+# Cache Control
+<FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</FilesMatch>
+
+<FilesMatch "\.(js|css|gif|png|jpg|jpeg|ico|svg)$">
+    Header set Cache-Control "max-age=31536000"
+</FilesMatch>
