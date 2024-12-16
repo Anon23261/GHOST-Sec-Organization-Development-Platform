@@ -6,145 +6,88 @@
     <title>Healthcare Management System Demo</title>
     <link rel="stylesheet" href="../demo-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="demo-container">
-        <nav class="demo-nav">
-            <div class="logo">MedCare Pro</div>
-            <div class="nav-items">
-                <a href="#" class="active">Dashboard</a>
-                <a href="#">Patients</a>
-                <a href="#">Appointments</a>
-                <a href="#">Records</a>
-            </div>
-            <div class="user-profile">
-                <img src="https://via.placeholder.com/40" alt="Dr. Smith">
-                <span>Dr. Smith</span>
-            </div>
-        </nav>
-
-        <main class="demo-content">
-            <section class="patient-overview">
-                <div class="patient-card">
-                    <div class="patient-header">
-                        <img src="https://via.placeholder.com/60" alt="Patient">
-                        <div class="patient-info">
-                            <h3>Jane Cooper</h3>
-                            <span>Patient ID: #12345</span>
-                        </div>
-                    </div>
-                    <div class="vital-signs">
-                        <div class="vital">
-                            <i class="fas fa-heartbeat"></i>
-                            <span>72 BPM</span>
-                        </div>
-                        <div class="vital">
-                            <i class="fas fa-thermometer"></i>
-                            <span>98.6°F</span>
-                        </div>
-                        <div class="vital">
-                            <i class="fas fa-lungs"></i>
-                            <span>98% O2</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button class="view-records">View Records</button>
-                        <button class="schedule">Schedule</button>
-                    </div>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-hospital"></i> Healthcare Management System</h1>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="patient-search" placeholder="Search patients...">
                 </div>
-            </section>
-
-            <section class="code-preview">
-                <div class="code-header">
-                    <h3>Vue.js Component Example</h3>
-                    <div class="actions">
-                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
-                        <button class="run-btn"><i class="fas fa-play"></i></button>
-                    </div>
-                </div>
-                <pre><code class="language-vue">
-<template>
-  <div class="patient-records">
-    <div class="records-header">
-      <h2>{{ patient.name }}</h2>
-      <div class="record-stats">
-        <span>Age: {{ patient.age }}</span>
-        <span>Last Visit: {{ formatDate(patient.lastVisit) }}</span>
-      </div>
-    </div>
-
-    <div class="medical-history">
-      <template v-for="record in medicalHistory">
-        <div :key="record.id" class="record-item">
-          <div class="record-date">{{ formatDate(record.date) }}</div>
-          <div class="record-content">
-            <h4>{{ record.type }}</h4>
-            <p>{{ record.description }}</p>
-            <div class="attachments" v-if="record.attachments.length">
-              <div v-for="file in record.attachments" 
-                   :key="file.id" 
-                   class="attachment">
-                <i :class="getFileIcon(file.type)"></i>
-                <span>{{ file.name }}</span>
-              </div>
+                <button class="btn" onclick="scheduleAppointment()">
+                    <i class="fas fa-plus"></i> New Appointment
+                </button>
             </div>
-          </div>
-        </div>
-      </template>
-    </div>
+        </header>
 
-    <div class="record-actions">
-      <button @click="addNewRecord">Add Record</button>
-      <button @click="exportRecords">Export PDF</button>
-    </div>
-  </div>
-</template>
+        <main class="app-content">
+            <div class="dashboard-grid">
+                <!-- Stats Cards -->
+                <section class="stats-section">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" data-stat="totalPatients">0</span>
+                            <span class="stat-label">Total Patients</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" data-stat="appointmentsToday">0</span>
+                            <span class="stat-label">Today's Appointments</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" data-stat="criticalCases">0</span>
+                            <span class="stat-label">Critical Cases</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="stat-info">
+                            <span class="stat-value" data-stat="completedVisits">0</span>
+                            <span class="stat-label">Completed Visits</span>
+                        </div>
+                    </div>
+                </section>
 
-<script>
-import { ref, onMounted } from 'vue';
-import { usePatientStore } from '@/stores/patient';
-import { formatDate, getFileIcon } from '@/utils';
+                <!-- Patient List -->
+                <section class="patients-section">
+                    <h2>Active Patients</h2>
+                    <div class="patient-list">
+                        <!-- Patient cards will be dynamically added here -->
+                    </div>
+                </section>
 
-export default {
-  name: 'PatientRecords',
-  props: {
-    patientId: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props) {
-    const patientStore = usePatientStore();
-    const medicalHistory = ref([]);
+                <!-- Appointments -->
+                <section class="appointments-section">
+                    <h2>Today's Schedule</h2>
+                    <div class="appointment-list">
+                        <!-- Appointment cards will be dynamically added here -->
+                    </div>
+                </section>
 
-    onMounted(async () => {
-      await patientStore.fetchPatientRecords(props.patientId);
-      medicalHistory.value = patientStore.records;
-    });
-
-    const addNewRecord = () => {
-      // Implementation
-    };
-
-    const exportRecords = async () => {
-      // Implementation
-    };
-
-    return {
-      medicalHistory,
-      addNewRecord,
-      exportRecords,
-      formatDate,
-      getFileIcon
-    };
-  }
-};
-</script>
-                </code></pre>
-            </section>
+                <!-- Analytics -->
+                <section class="analytics-section">
+                    <h2>Analytics</h2>
+                    <div class="chart-container">
+                        <canvas id="patientStats"></canvas>
+                    </div>
+                </section>
+            </div>
         </main>
+
+        <footer class="app-footer">
+            <p> 2024 Healthcare Management System Demo</p>
+        </footer>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+
     <script src="demo.js"></script>
 </body>
 </html>
