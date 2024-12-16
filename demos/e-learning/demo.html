@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="demo-container">
+        <nav class="demo-nav">
+            <div class="logo">LearnHub</div>
+            <div class="nav-items">
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Courses</a>
+                <a href="#">Live Sessions</a>
+                <a href="#">Progress</a>
+            </div>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="User">
+                <span>John Doe</span>
+            </div>
+        </nav>
+
+        <main class="demo-content">
+            <section class="course-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Advanced Web Development</h3>
+                        <span class="progress">75% Complete</span>
+                    </div>
+                    <div class="course-body">
+                        <div class="video-preview">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="course-stats">
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>2h 30m remaining</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-book"></i>
+                                <span>12 modules</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="resume-btn">Resume Course</button>
+                </div>
+
+                <div class="upcoming-sessions">
+                    <h3>Upcoming Live Sessions</h3>
+                    <div class="session-list">
+                        <div class="session-item">
+                            <div class="session-time">
+                                <i class="fas fa-video"></i>
+                                <span>10:00 AM</span>
+                            </div>
+                            <div class="session-info">
+                                <h4>React Hooks Deep Dive</h4>
+                                <p>with Sarah Johnson</p>
+                            </div>
+                            <button class="join-btn">Join</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="code-preview">
+                <div class="code-header">
+                    <h3>React Component Example</h3>
+                    <div class="actions">
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                        <button class="run-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+                <pre><code class="language-jsx">
+import React, { useState, useEffect } from 'react';
+import { VideoPlayer, Chat } from './components';
+import { useWebRTC } from './hooks';
+
+const LiveSession = ({ sessionId, instructor }) => {
+    const [isConnected, setIsConnected] = useState(false);
+    const { stream, peers, error } = useWebRTC(sessionId);
+
+    useEffect(() => {
+        if (stream && peers.length > 0) {
+            setIsConnected(true);
+        }
+    }, [stream, peers]);
+
+    return (
+        <div className="live-session">
+            <VideoPlayer stream={stream} />
+            <div className="participants">
+                {peers.map(peer => (
+                    <VideoThumbnail key={peer.id} stream={peer.stream} />
+                ))}
+            </div>
+            <Chat sessionId={sessionId} instructor={instructor} />
+        </div>
+    );
+};
+
+export default LiveSession;
+                </code></pre>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="demo.js"></script>
+</body>
+</html>

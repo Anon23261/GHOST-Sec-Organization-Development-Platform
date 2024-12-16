@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Management System Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="demo-container">
+        <nav class="demo-nav">
+            <div class="logo">MedCare Pro</div>
+            <div class="nav-items">
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Patients</a>
+                <a href="#">Appointments</a>
+                <a href="#">Records</a>
+            </div>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Dr. Smith">
+                <span>Dr. Smith</span>
+            </div>
+        </nav>
+
+        <main class="demo-content">
+            <section class="patient-overview">
+                <div class="patient-card">
+                    <div class="patient-header">
+                        <img src="https://via.placeholder.com/60" alt="Patient">
+                        <div class="patient-info">
+                            <h3>Jane Cooper</h3>
+                            <span>Patient ID: #12345</span>
+                        </div>
+                    </div>
+                    <div class="vital-signs">
+                        <div class="vital">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>72 BPM</span>
+                        </div>
+                        <div class="vital">
+                            <i class="fas fa-thermometer"></i>
+                            <span>98.6°F</span>
+                        </div>
+                        <div class="vital">
+                            <i class="fas fa-lungs"></i>
+                            <span>98% O2</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="view-records">View Records</button>
+                        <button class="schedule">Schedule</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="code-preview">
+                <div class="code-header">
+                    <h3>Vue.js Component Example</h3>
+                    <div class="actions">
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                        <button class="run-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+                <pre><code class="language-vue">
+<template>
+  <div class="patient-records">
+    <div class="records-header">
+      <h2>{{ patient.name }}</h2>
+      <div class="record-stats">
+        <span>Age: {{ patient.age }}</span>
+        <span>Last Visit: {{ formatDate(patient.lastVisit) }}</span>
+      </div>
+    </div>
+
+    <div class="medical-history">
+      <template v-for="record in medicalHistory">
+        <div :key="record.id" class="record-item">
+          <div class="record-date">{{ formatDate(record.date) }}</div>
+          <div class="record-content">
+            <h4>{{ record.type }}</h4>
+            <p>{{ record.description }}</p>
+            <div class="attachments" v-if="record.attachments.length">
+              <div v-for="file in record.attachments" 
+                   :key="file.id" 
+                   class="attachment">
+                <i :class="getFileIcon(file.type)"></i>
+                <span>{{ file.name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="record-actions">
+      <button @click="addNewRecord">Add Record</button>
+      <button @click="exportRecords">Export PDF</button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from 'vue';
+import { usePatientStore } from '@/stores/patient';
+import { formatDate, getFileIcon } from '@/utils';
+
+export default {
+  name: 'PatientRecords',
+  props: {
+    patientId: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
+    const patientStore = usePatientStore();
+    const medicalHistory = ref([]);
+
+    onMounted(async () => {
+      await patientStore.fetchPatientRecords(props.patientId);
+      medicalHistory.value = patientStore.records;
+    });
+
+    const addNewRecord = () => {
+      // Implementation
+    };
+
+    const exportRecords = async () => {
+      // Implementation
+    };
+
+    return {
+      medicalHistory,
+      addNewRecord,
+      exportRecords,
+      formatDate,
+      getFileIcon
+    };
+  }
+};
+</script>
+                </code></pre>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="demo.js"></script>
+</body>
+</html>

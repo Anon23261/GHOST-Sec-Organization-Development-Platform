@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory System Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="demo-container">
+        <nav class="demo-nav">
+            <div class="logo">SmartStock</div>
+            <div class="nav-items">
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Inventory</a>
+                <a href="#">Analytics</a>
+                <a href="#">Orders</a>
+            </div>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Admin">
+                <span>Admin</span>
+            </div>
+        </nav>
+
+        <main class="demo-content">
+            <section class="inventory-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Items</h3>
+                            <span>1,234</span>
+                        </div>
+                        <div class="stat-chart">
+                            <!-- Chart placeholder -->
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Low Stock</h3>
+                            <span>23 items</span>
+                        </div>
+                        <div class="stat-chart">
+                            <!-- Chart placeholder -->
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending Orders</h3>
+                            <span>45</span>
+                        </div>
+                        <div class="stat-chart">
+                            <!-- Chart placeholder -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="code-preview">
+                <div class="code-header">
+                    <h3>Angular Component Example</h3>
+                    <div class="actions">
+                        <button class="copy-btn"><i class="fas fa-copy"></i></button>
+                        <button class="run-btn"><i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+                <pre><code class="language-typescript">
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { InventoryService } from './services';
+import { InventoryState, Item } from './models';
+import * as InventoryActions from './store/actions';
+import * as InventorySelectors from './store/selectors';
+
+@Component({
+  selector: 'app-inventory-dashboard',
+  template: `
+    <div class="inventory-dashboard">
+      <div class="stats-container">
+        <app-stat-card
+          *ngFor="let stat of stats$ | async"
+          [data]="stat"
+          (click)="onStatClick(stat)">
+        </app-stat-card>
+      </div>
+
+      <div class="inventory-table">
+        <table mat-table [dataSource]="items$ | async">
+          <!-- Item Code Column -->
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef> Code </th>
+            <td mat-cell *matCellDef="let item"> {{item.code}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+          </ng-container>
+
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td mat-cell *matCellDef="let item" 
+                [ngClass]="{'low-stock': item.quantity < item.minQuantity}">
+              {{item.quantity}}
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let item">
+              <button mat-icon-button (click)="updateStock(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="reorder(item)">
+                <mat-icon>shopping_cart</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  `
+})
+export class InventoryDashboardComponent implements OnInit {
+  items$: Observable<Item[]>;
+  stats$: Observable<any[]>;
+  displayedColumns: string[] = ['code', 'name', 'quantity', 'actions'];
+
+  constructor(
+    private store: Store<InventoryState>,
+    private inventoryService: InventoryService
+  ) {
+    this.items$ = this.store.select(InventorySelectors.selectAllItems);
+    this.stats$ = this.store.select(InventorySelectors.selectInventoryStats);
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(InventoryActions.loadItems());
+    this.setupRealTimeUpdates();
+  }
+
+  private setupRealTimeUpdates(): void {
+    this.inventoryService.getStockUpdates()
+      .pipe(
+        map(update => InventoryActions.updateStock({ update }))
+      )
+      .subscribe(action => this.store.dispatch(action));
+  }
+
+  updateStock(item: Item): void {
+    // Implementation
+  }
+
+  reorder(item: Item): void {
+    if (item.quantity < item.minQuantity) {
+      this.store.dispatch(InventoryActions.createReorderRequest({ item }));
+    }
+  }
+
+  onStatClick(stat: any): void {
+    // Implementation
+  }
+}
+                </code></pre>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="demo.js"></script>
+</body>
+</html>
