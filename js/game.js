@@ -1,160 +1,134 @@
-class Process {
-    constructor(id, name, priority, memoryUsage) {
-        this.id = id;
-        this.name = name;
-        this.priority = priority;
-        this.memoryUsage = memoryUsage;
-        this.state = 'ready';
-        this.position = { x: 0, y: 0 };
-        this.color = `hsl(${Math.random() * 360}, 50%, 50%)`;
-    }
-}
-
-class ProcessGame {
+class TerminalGame {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
-        this.canvas = document.createElement('canvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.processes = [];
-        this.score = 0;
-        this.gameLoop = null;
-        this.paused = true;
-        
-        // Matrix rain effect
-        this.drops = [];
-        this.fontSize = 14;
-        this.matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
-        
-        this.setupGame();
-        this.setupControls();
-    }
-
-    setupGame() {
-        this.container.appendChild(this.canvas);
-        this.resizeCanvas();
-        window.addEventListener('resize', () => this.resizeCanvas());
-        
-        // Initialize matrix rain
-        const columns = Math.floor(this.canvas.width / this.fontSize);
-        for(let i = 0; i < columns; i++) {
-            this.drops[i] = 1;
-        }
-    }
-
-    resizeCanvas() {
-        this.canvas.width = this.container.clientWidth;
-        this.canvas.height = 400;
-    }
-
-    setupControls() {
-        const controls = document.createElement('div');
-        controls.className = 'game-controls';
-        
-        const startBtn = document.createElement('button');
-        startBtn.textContent = 'Initialize System';
-        startBtn.addEventListener('click', () => this.toggleGame());
-        
-        const scoreDisplay = document.createElement('div');
-        scoreDisplay.className = 'score';
-        scoreDisplay.innerHTML = '<span>System Load: </span><span id="scoreValue">0</span>';
-        
-        controls.appendChild(startBtn);
-        controls.appendChild(scoreDisplay);
-        this.container.appendChild(controls);
-    }
-
-    toggleGame() {
-        if (this.paused) {
-            this.startGame();
-        } else {
-            this.pauseGame();
-        }
-    }
-
-    startGame() {
-        this.paused = false;
-        this.gameLoop = requestAnimationFrame(() => this.update());
-        this.spawnProcess();
-    }
-
-    pauseGame() {
-        this.paused = true;
-        cancelAnimationFrame(this.gameLoop);
-    }
-
-    spawnProcess() {
-        if (this.processes.length < 10) {
-            const process = new Process(
-                Date.now(),
-                `Process_${Math.floor(Math.random() * 1000)}`,
-                Math.floor(Math.random() * 10),
-                Math.floor(Math.random() * 100)
-            );
-            
-            process.position = {
-                x: Math.random() * (this.canvas.width - 30),
-                y: 0
-            };
-            
-            this.processes.push(process);
-        }
-    }
-
-    drawMatrixRain() {
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        this.ctx.fillStyle = '#0F0';
-        this.ctx.font = this.fontSize + 'px monospace';
-        
-        for(let i = 0; i < this.drops.length; i++) {
-            const text = this.matrixChars[Math.floor(Math.random() * this.matrixChars.length)];
-            this.ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
-            
-            if(this.drops[i] * this.fontSize > this.canvas.height && Math.random() > 0.975) {
-                this.drops[i] = 0;
+        this.terminal = this.createTerminal();
+        this.currentLevel = 0;
+        this.levels = [
+            {
+                challenge: 'Find the hidden file in /home/user/',
+                solution: 'ls -la /home/user',
+                hint: 'Try using ls with some flags to show hidden files'
+            },
+            {
+                challenge: 'Change directory permissions to 755',
+                solution: 'chmod 755',
+                hint: 'chmod command changes permissions'
+            },
+            {
+                challenge: 'Create a new directory called "secure_files"',
+                solution: 'mkdir secure_files',
+                hint: 'mkdir creates new directories'
             }
-            this.drops[i]++;
-        }
+        ];
+        this.init();
     }
 
-    update() {
-        if (this.paused) return;
+    createTerminal() {
+        const terminal = document.createElement('div');
+        terminal.className = 'game-terminal';
         
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.drawMatrixRain();
+        const output = document.createElement('div');
+        output.className = 'terminal-output';
+        terminal.appendChild(output);
+
+        const inputLine = document.createElement('div');
+        inputLine.className = 'terminal-input-line';
         
-        // Update and draw processes
-        this.processes.forEach((process, index) => {
-            process.position.y += 2 + process.priority * 0.5;
-            
-            // Draw process
-            this.ctx.fillStyle = process.color;
-            this.ctx.fillRect(process.position.x, process.position.y, 30, 30);
-            
-            // Draw process info
-            this.ctx.fillStyle = '#00FF00';
-            this.ctx.font = '10px monospace';
-            this.ctx.fillText(process.name, process.position.x, process.position.y - 5);
-            
-            // Check if process reached bottom
-            if (process.position.y > this.canvas.height) {
-                this.processes.splice(index, 1);
-                this.score += process.priority * 10;
-                document.getElementById('scoreValue').textContent = this.score;
+        const prompt = document.createElement('span');
+        prompt.className = 'terminal-prompt';
+        prompt.textContent = 'user@ghostsec:~$ ';
+        inputLine.appendChild(prompt);
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'terminal-input';
+        inputLine.appendChild(input);
+
+        terminal.appendChild(inputLine);
+        return terminal;
+    }
+
+    init() {
+        this.container.innerHTML = '';
+        this.container.appendChild(this.terminal);
+
+        const levelDisplay = document.createElement('div');
+        levelDisplay.className = 'level-display';
+        levelDisplay.textContent = `Level ${this.currentLevel + 1}`;
+        this.container.insertBefore(levelDisplay, this.terminal);
+
+        const challenge = document.createElement('div');
+        challenge.className = 'challenge';
+        challenge.textContent = this.levels[this.currentLevel].challenge;
+        this.container.insertBefore(challenge, this.terminal);
+
+        const hintButton = document.createElement('button');
+        hintButton.className = 'hint-button';
+        hintButton.textContent = 'Get Hint';
+        hintButton.onclick = () => this.showHint();
+        this.container.appendChild(hintButton);
+
+        const input = this.terminal.querySelector('.terminal-input');
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.processCommand(input.value);
+                input.value = '';
             }
         });
-        
-        // Spawn new process
-        if (Math.random() < 0.02) {
-            this.spawnProcess();
+    }
+
+    processCommand(command) {
+        const output = this.terminal.querySelector('.terminal-output');
+        const commandDisplay = document.createElement('div');
+        commandDisplay.className = 'command-line';
+        commandDisplay.innerHTML = `<span class="terminal-prompt">user@ghostsec:~$ </span>${command}`;
+        output.appendChild(commandDisplay);
+
+        if (command.trim().toLowerCase() === this.levels[this.currentLevel].solution.toLowerCase()) {
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.textContent = 'Correct! Moving to next level...';
+            output.appendChild(successMessage);
+            
+            setTimeout(() => {
+                this.currentLevel++;
+                if (this.currentLevel < this.levels.length) {
+                    this.init();
+                } else {
+                    this.showVictory();
+                }
+            }, 1500);
+        } else {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = 'Command not recognized. Try again!';
+            output.appendChild(errorMessage);
         }
-        
-        this.gameLoop = requestAnimationFrame(() => this.update());
+
+        output.scrollTop = output.scrollHeight;
+    }
+
+    showHint() {
+        const output = this.terminal.querySelector('.terminal-output');
+        const hintMessage = document.createElement('div');
+        hintMessage.className = 'hint-message';
+        hintMessage.textContent = `Hint: ${this.levels[this.currentLevel].hint}`;
+        output.appendChild(hintMessage);
+        output.scrollTop = output.scrollHeight;
+    }
+
+    showVictory() {
+        this.container.innerHTML = `
+            <div class="victory-message">
+                <h2>🎉 Congratulations! 🎉</h2>
+                <p>You've completed all levels!</p>
+                <button onclick="location.reload()">Play Again</button>
+            </div>
+        `;
     }
 }
 
 // Initialize game when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const game = new ProcessGame('game');
+    const game = new TerminalGame('gameContainer');
 });

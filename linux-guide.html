@@ -60,6 +60,21 @@
             border-left: 3px solid #00ffaa;
             margin: 1rem 0;
         }
+        
+        .feature-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .feature-table th, .feature-table td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        
+        .feature-table th {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -81,14 +96,15 @@
             
             <section class="content-section" id="slackware">
                 <h2>Slackware Linux</h2>
-                <p>Slackware is one of the oldest Linux distributions still in active development, known for its simplicity, stability, and adherence to Unix principles.</p>
+                <p>Slackware Linux, founded by Patrick Volkerding in 1993, is the oldest actively maintained Linux distribution. Known for its commitment to simplicity and stability, Slackware follows the KISS (Keep It Simple, Stupid) principle.</p>
                 
-                <h3>Key Features</h3>
+                <h3>Core Principles</h3>
                 <ul>
-                    <li>Simplicity and stability focused</li>
-                    <li>No automatic dependency resolution</li>
-                    <li>Traditional Unix-like system structure</li>
-                    <li>Conservative approach to package updates</li>
+                    <li>UNIX-like design philosophy</li>
+                    <li>Stability and security focused</li>
+                    <li>Manual dependency resolution for complete control</li>
+                    <li>Plain text configuration files</li>
+                    <li>BSD-style init scripts</li>
                 </ul>
                 
                 <h3>Package Management</h3>
@@ -101,33 +117,89 @@
                     
                     # Upgrade a package
                     upgradepkg package.tgz
+                    
+                    # Convert rpm to Slackware package
+                    rpm2tgz package.rpm
                 </div>
+
+                <h3>System Specifications</h3>
+                <ul>
+                    <li>Latest Version: 15.0 (Released February 2, 2022)</li>
+                    <li>Kernel Version: 5.15.x LTS</li>
+                    <li>Package Format: .tgz, .txz (compressed tar archives)</li>
+                    <li>Default Desktop: KDE Plasma 5.23.5</li>
+                    <li>Alternative Desktops: Xfce 4.16, Fluxbox</li>
+                    <li>Init System: SysVinit</li>
+                </ul>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Full FHS (Filesystem Hierarchy Standard) compliance</li>
+                    <li>GCC 11.2.0 compiler suite</li>
+                    <li>Comprehensive development tools</li>
+                    <li>PAM-free authentication</li>
+                    <li>systemd-free operation</li>
+                </ul>
             </section>
 
-            <section class="content-section" id="lfs">
-                <h2>Linux From Scratch (LFS)</h2>
-                <p>Linux From Scratch is a project that provides step-by-step instructions for building your own custom Linux system from source code.</p>
-                
-                <h3>Build Process Overview</h3>
-                <ol>
-                    <li>Prepare the host system</li>
-                    <li>Create a new partition and file system</li>
-                    <li>Download source packages</li>
-                    <li>Create a temporary toolchain</li>
-                    <li>Build the base system</li>
-                    <li>Configure the system</li>
-                </ol>
-                
-                <div class="tip">
-                    <strong>Tip:</strong> Always follow the LFS book version that matches your host system's capabilities and requirements.
+            <section class="content-section" id="kernel">
+                <h2>Linux Kernel</h2>
+                <p>The Linux kernel, initially created by Linus Torvalds in 1991, is the core component of Linux operating systems. It serves as the main interface between hardware and system processes.</p>
+
+                <h3>Kernel Architecture</h3>
+                <ul>
+                    <li>Monolithic kernel with loadable module support</li>
+                    <li>Preemptive multitasking</li>
+                    <li>SMP (Symmetric Multiprocessing) support</li>
+                    <li>Virtual memory management with paging</li>
+                    <li>Unified VFS (Virtual File System) layer</li>
+                </ul>
+
+                <h3>Key Components</h3>
+                <ul>
+                    <li>Process Scheduler: CFS (Completely Fair Scheduler)</li>
+                    <li>Memory Management: NUMA, Transparent Huge Pages</li>
+                    <li>File Systems: ext4, XFS, Btrfs, F2FS</li>
+                    <li>Network Stack: TCP/IP v4/v6, Netfilter</li>
+                    <li>Security: SELinux, AppArmor, Seccomp</li>
+                </ul>
+
+                <h3>Kernel Compilation</h3>
+                <div class="code-block">
+                    # Prerequisites
+                    apt install build-essential libncurses-dev bison flex libssl-dev libelf-dev
+                    
+                    # Download and extract kernel
+                    wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz
+                    tar xf linux-5.15.tar.xz
+                    cd linux-5.15
+                    
+                    # Configure kernel
+                    make menuconfig
+                    
+                    # Build kernel (j8 for 8 CPU threads)
+                    make -j8
+                    make modules -j8
+                    sudo make modules_install
+                    sudo make install
                 </div>
+
+                <h3>Latest Stable Features (6.6.x)</h3>
+                <ul>
+                    <li>Intel Meteor Lake support</li>
+                    <li>AMD Zen 4 optimizations</li>
+                    <li>Improved RISC-V support</li>
+                    <li>Enhanced BCachefs file system</li>
+                    <li>USB4 v2 protocol support</li>
+                    <li>Real-time scheduling improvements</li>
+                </ul>
             </section>
 
             <section class="content-section" id="bootloaders">
                 <h2>Bootloaders</h2>
                 
                 <h3>LILO (Linux Loader)</h3>
-                <p>LILO is one of the oldest Linux bootloaders, known for its simplicity and reliability.</p>
+                <p>LILO is a legacy bootloader that directly accesses the BIOS. While less common today, it's still used in some specialized systems.</p>
                 
                 <div class="code-block">
                     # Example lilo.conf
@@ -136,60 +208,55 @@
                     install = /boot/boot.b
                     prompt
                     timeout = 50
+                    default = linux
                     
-                    image = /boot/vmlinuz
-        root = /dev/sda1
-        label = linux
+                    image = /boot/vmlinuz-5.15.0
+                        root = /dev/sda1
+                        label = linux
+                        read-only
                 </div>
                 
-                <h3>GRUB (Grand Unified Bootloader)</h3>
-                <p>GRUB is the most widely used bootloader in modern Linux distributions, offering more features and flexibility than LILO.</p>
+                <h3>GRUB2 (Grand Unified Bootloader 2)</h3>
+                <p>GRUB2 is the modern standard bootloader for most Linux distributions, offering advanced features and flexibility.</p>
                 
                 <div class="code-block">
                     # Example grub.cfg entry
                     menuentry "Linux" {
-        set root=(hd0,1)
-        linux /boot/vmlinuz root=/dev/sda1
-        initrd /boot/initrd.img
-    }
+                        insmod ext4
+                        set root=(hd0,1)
+                        linux /boot/vmlinuz-5.15.0 root=/dev/sda1 ro quiet splash
+                        initrd /boot/initrd.img-5.15.0
+                    }
                 </div>
-                
-                <div class="warning">
-                    <strong>Warning:</strong> Always keep a backup of your working bootloader configuration before making changes.
-                </div>
-            </section>
 
-            <section class="content-section" id="kernel">
-                <h2>Linux Kernel</h2>
-                <p>The Linux kernel is the core component of the operating system, managing hardware resources and providing essential services.</p>
-                
-                <h3>Kernel Compilation Steps</h3>
-                <div class="code-block">
-                    # Download kernel source
-                    wget https://kernel.org/pub/linux/kernel/v5.x/linux-5.x.tar.xz
-                    
-                    # Configure kernel
-                    make menuconfig
-                    
-                    # Build kernel
-                    make
-                    make modules
-                    make modules_install
-                    make install
-                </div>
-                
-                <h3>Key Kernel Features</h3>
-                <ul>
-                    <li>Monolithic kernel architecture</li>
-                    <li>Loadable kernel modules</li>
-                    <li>Preemptive multitasking</li>
-                    <li>Advanced memory management</li>
-                    <li>Extensive hardware support</li>
-                </ul>
-                
-                <div class="tip">
-                    <strong>Tip:</strong> When compiling a custom kernel, start with your distribution's kernel configuration as a base.
-                </div>
+                <h3>Key Features Comparison</h3>
+                <table class="feature-table">
+                    <tr>
+                        <th>Feature</th>
+                        <th>LILO</th>
+                        <th>GRUB2</th>
+                    </tr>
+                    <tr>
+                        <td>Configuration Changes</td>
+                        <td>Requires reinstall</td>
+                        <td>Dynamic</td>
+                    </tr>
+                    <tr>
+                        <td>File System Support</td>
+                        <td>Limited</td>
+                        <td>Extensive</td>
+                    </tr>
+                    <tr>
+                        <td>Boot Menu</td>
+                        <td>Basic</td>
+                        <td>Advanced, graphical</td>
+                    </tr>
+                    <tr>
+                        <td>UEFI Support</td>
+                        <td>No</td>
+                        <td>Yes</td>
+                    </tr>
+                </table>
             </section>
         </div>
     </main>

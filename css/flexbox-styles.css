@@ -141,34 +141,299 @@ body {
   background: var(--card-bg);
 }
 
+/* Game Styles */
+#gameContainer {
+    background: #000;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    font-family: 'Courier New', monospace;
+}
+
+.level-display {
+    color: #00ff00;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.challenge {
+    color: #fff;
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-left: 3px solid #00ff00;
+}
+
+.game-terminal {
+    background: #0a0a0a;
+    border-radius: 4px;
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.terminal-output {
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+}
+
+.terminal-prompt {
+    color: #00ff00;
+    margin-right: 5px;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    outline: none;
+}
+
+.command-line {
+    margin: 5px 0;
+}
+
+.success-message {
+    color: #00ff00;
+    margin: 5px 0;
+}
+
+.error-message {
+    color: #ff4444;
+    margin: 5px 0;
+}
+
+.hint-message {
+    color: #ffaa00;
+    margin: 5px 0;
+}
+
+.hint-button {
+    background: #1a1a1a;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+}
+
+.hint-button:hover {
+    background: #00ff00;
+    color: #000;
+}
+
+.victory-message {
+    text-align: center;
+    color: #00ff00;
+    padding: 20px;
+}
+
+.victory-message h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.victory-message button {
+    background: #00ff00;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.victory-message button:hover {
+    background: #00cc00;
+    transform: scale(1.05);
+}
+
+/* Scrollbar Styles */
+.game-terminal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.game-terminal::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.game-terminal::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+}
+
+.game-terminal::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+}
+
+/* Table Styles */
+.feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.feature-table th,
+.feature-table td {
+    padding: 0.8rem;
+    text-align: left;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.feature-table th {
+    background: rgba(0, 255, 0, 0.1);
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.feature-table tr:hover {
+    background: rgba(0, 255, 0, 0.05);
+}
+
+/* Content Section Enhancements */
+.content-section {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.content-section h2 {
+    color: #00ff00;
+    border-bottom: 2px solid #00ff00;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.content-section h3 {
+    color: #00cc00;
+    margin: 2rem 0 1rem;
+}
+
+.content-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content-section ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.content-section ul li:before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: #00ff00;
+}
+
+.code-block {
+    background: #000;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    border-left: 3px solid #00ff00;
+    overflow-x: auto;
+}
+
+.code-block::-webkit-scrollbar {
+    height: 8px;
+}
+
+.code-block::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+}
+
 /* Contact Form */
+.contact {
+    padding: 2rem;
+}
+
+.contact h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
 .contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 8px;
 }
 
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  background: var(--background-dark);
-  border: 1px solid var(--primary-color);
-  color: var(--text-color);
+.form-group {
+    margin-bottom: 1.5rem;
 }
 
-.contact-form button {
-  background: var(--primary-color);
-  color: var(--background-dark);
-  padding: 0.8rem 2rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
 }
 
-.contact-form button:hover {
-  background: var(--hover-color);
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #00cc00;
 }
 
 /* Auth Modal */

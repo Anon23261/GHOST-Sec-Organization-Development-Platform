@@ -159,4 +159,7 @@ GHOST SEC | SYSTEM INITIALIZED | READY FOR DEPLOYMENT
 - name: Configure Git
   run: |
     git config --global user.name "GitHub Actions Bot"
-    git config --global user.email "actions@github.com"
+    git config --global user.email "actions@github.com"URL: ghostsec.org/*
+    Settings:
+    - SSL: Full
+    - Always Use HTTPS: On
