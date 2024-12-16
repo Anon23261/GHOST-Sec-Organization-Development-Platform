@@ -1,229 +1,160 @@
+class Process {
+    constructor(id, name, priority, memoryUsage) {
+        this.id = id;
+        this.name = name;
+        this.priority = priority;
+        this.memoryUsage = memoryUsage;
+        this.state = 'ready';
+        this.position = { x: 0, y: 0 };
+        this.color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+    }
+}
+
 class ProcessGame {
-    constructor() {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.canvas = document.createElement('canvas');
+        this.ctx = this.canvas.getContext('2d');
         this.processes = [];
-        this.maxProcesses = 10;
         this.score = 0;
-        this.gameOver = false;
-        this.gameStarted = false;
-        this.initializeGame();
+        this.gameLoop = null;
+        this.paused = true;
+        
+        // Matrix rain effect
+        this.drops = [];
+        this.fontSize = 14;
+        this.matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+        
+        this.setupGame();
+        this.setupControls();
     }
 
-    initializeGame() {
-        // Create game container
-        this.gameContainer = document.createElement('div');
-        this.gameContainer.id = 'process-game';
-        this.gameContainer.className = 'process-game';
-
-        // Create score display
-        this.scoreDisplay = document.createElement('div');
-        this.scoreDisplay.className = 'score-display';
-        this.updateScore();
-
-        // Create process container
-        this.processContainer = document.createElement('div');
-        this.processContainer.className = 'process-container';
-
-        // Create controls
-        this.controls = document.createElement('div');
-        this.controls.className = 'game-controls';
+    setupGame() {
+        this.container.appendChild(this.canvas);
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
         
-        const startButton = document.createElement('button');
-        startButton.textContent = 'Start Game';
-        startButton.onclick = () => this.startGame();
-        
-        const resetButton = document.createElement('button');
-        resetButton.textContent = 'Reset';
-        resetButton.onclick = () => this.resetGame();
-
-        this.controls.appendChild(startButton);
-        this.controls.appendChild(resetButton);
-
-        // Assemble game elements
-        this.gameContainer.appendChild(this.scoreDisplay);
-        this.gameContainer.appendChild(this.processContainer);
-        this.gameContainer.appendChild(this.controls);
-
-        // Add to page
-        const gameSection = document.getElementById('game');
-        if (gameSection) {
-            gameSection.appendChild(this.gameContainer);
+        // Initialize matrix rain
+        const columns = Math.floor(this.canvas.width / this.fontSize);
+        for(let i = 0; i < columns; i++) {
+            this.drops[i] = 1;
         }
-
-        // Add styles
-        this.addStyles();
     }
 
-    addStyles() {
-        const styles = `
-            .process-game {
-                width: 100%;
-                max-width: 800px;
-                margin: 20px auto;
-                padding: 20px;
-                background: #1a1a1a;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
+    resizeCanvas() {
+        this.canvas.width = this.container.clientWidth;
+        this.canvas.height = 400;
+    }
 
-            .score-display {
-                font-size: 24px;
-                color: #00ff00;
-                text-align: center;
-                margin-bottom: 20px;
-                font-family: 'Courier New', monospace;
-            }
+    setupControls() {
+        const controls = document.createElement('div');
+        controls.className = 'game-controls';
+        
+        const startBtn = document.createElement('button');
+        startBtn.textContent = 'Initialize System';
+        startBtn.addEventListener('click', () => this.toggleGame());
+        
+        const scoreDisplay = document.createElement('div');
+        scoreDisplay.className = 'score';
+        scoreDisplay.innerHTML = '<span>System Load: </span><span id="scoreValue">0</span>';
+        
+        controls.appendChild(startBtn);
+        controls.appendChild(scoreDisplay);
+        this.container.appendChild(controls);
+    }
 
-            .process-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-
-            .process {
-                background: #2a2a2a;
-                padding: 15px;
-                border-radius: 5px;
-                color: #fff;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                border: 1px solid #3a3a3a;
-                text-align: center;
-            }
-
-            .process:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 2px 4px rgba(0, 255, 0, 0.2);
-                border-color: #00ff00;
-            }
-
-            .process.high-priority {
-                border-color: #ff4444;
-            }
-
-            .game-controls {
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-            }
-
-            .game-controls button {
-                padding: 10px 20px;
-                font-size: 16px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                background: #00ff00;
-                color: #000;
-                transition: all 0.3s ease;
-            }
-
-            .game-controls button:hover {
-                background: #00cc00;
-                transform: translateY(-2px);
-            }
-
-            @keyframes processSpawn {
-                from { transform: scale(0); opacity: 0; }
-                to { transform: scale(1); opacity: 1; }
-            }
-
-            .process {
-                animation: processSpawn 0.3s ease-out;
-            }
-        `;
-
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = styles;
-        document.head.appendChild(styleSheet);
+    toggleGame() {
+        if (this.paused) {
+            this.startGame();
+        } else {
+            this.pauseGame();
+        }
     }
 
     startGame() {
-        if (this.gameStarted) return;
-        this.gameStarted = true;
-        this.gameOver = false;
-        this.score = 0;
-        this.updateScore();
-        this.gameLoop();
+        this.paused = false;
+        this.gameLoop = requestAnimationFrame(() => this.update());
+        this.spawnProcess();
     }
 
-    resetGame() {
-        this.gameStarted = false;
-        this.gameOver = true;
-        this.score = 0;
-        this.processes = [];
-        this.updateScore();
-        this.updateProcessDisplay();
+    pauseGame() {
+        this.paused = true;
+        cancelAnimationFrame(this.gameLoop);
     }
 
-    createProcess() {
-        if (this.processes.length >= this.maxProcesses) return;
-        
-        const process = {
-            id: Math.random().toString(36).substr(2, 9),
-            priority: Math.random() > 0.7,
-            timeToLive: Math.floor(Math.random() * 5000) + 3000
-        };
-        
-        this.processes.push(process);
-        this.updateProcessDisplay();
-    }
-
-    removeProcess(id) {
-        const index = this.processes.findIndex(p => p.id === id);
-        if (index !== -1) {
-            if (this.processes[index].priority) {
-                this.score += 100;
-            } else {
-                this.score += 50;
-            }
-            this.processes.splice(index, 1);
-            this.updateScore();
-            this.updateProcessDisplay();
+    spawnProcess() {
+        if (this.processes.length < 10) {
+            const process = new Process(
+                Date.now(),
+                `Process_${Math.floor(Math.random() * 1000)}`,
+                Math.floor(Math.random() * 10),
+                Math.floor(Math.random() * 100)
+            );
+            
+            process.position = {
+                x: Math.random() * (this.canvas.width - 30),
+                y: 0
+            };
+            
+            this.processes.push(process);
         }
     }
 
-    updateScore() {
-        this.scoreDisplay.textContent = `Score: ${this.score}`;
+    drawMatrixRain() {
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.ctx.fillStyle = '#0F0';
+        this.ctx.font = this.fontSize + 'px monospace';
+        
+        for(let i = 0; i < this.drops.length; i++) {
+            const text = this.matrixChars[Math.floor(Math.random() * this.matrixChars.length)];
+            this.ctx.fillText(text, i * this.fontSize, this.drops[i] * this.fontSize);
+            
+            if(this.drops[i] * this.fontSize > this.canvas.height && Math.random() > 0.975) {
+                this.drops[i] = 0;
+            }
+            this.drops[i]++;
+        }
     }
 
-    updateProcessDisplay() {
-        this.processContainer.innerHTML = '';
-        this.processes.forEach(process => {
-            const processElement = document.createElement('div');
-            processElement.className = `process ${process.priority ? 'high-priority' : ''}`;
-            processElement.textContent = process.priority ? 'Priority Process' : 'Normal Process';
-            processElement.onclick = () => this.removeProcess(process.id);
-            this.processContainer.appendChild(processElement);
+    update() {
+        if (this.paused) return;
+        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawMatrixRain();
+        
+        // Update and draw processes
+        this.processes.forEach((process, index) => {
+            process.position.y += 2 + process.priority * 0.5;
+            
+            // Draw process
+            this.ctx.fillStyle = process.color;
+            this.ctx.fillRect(process.position.x, process.position.y, 30, 30);
+            
+            // Draw process info
+            this.ctx.fillStyle = '#00FF00';
+            this.ctx.font = '10px monospace';
+            this.ctx.fillText(process.name, process.position.x, process.position.y - 5);
+            
+            // Check if process reached bottom
+            if (process.position.y > this.canvas.height) {
+                this.processes.splice(index, 1);
+                this.score += process.priority * 10;
+                document.getElementById('scoreValue').textContent = this.score;
+            }
         });
-    }
-
-    async gameLoop() {
-        while (!this.gameOver && this.gameStarted) {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            if (Math.random() > 0.7) {
-                this.createProcess();
-            }
-            
-            // Remove expired processes
-            this.processes = this.processes.filter(process => {
-                process.timeToLive -= 1000;
-                return process.timeToLive > 0;
-            });
-            
-            this.updateProcessDisplay();
-            
-            // Check game over condition
-            if (this.processes.length >= this.maxProcesses) {
-                this.gameOver = true;
-                alert(`Game Over! Final Score: ${this.score}`);
-                this.resetGame();
-            }
+        
+        // Spawn new process
+        if (Math.random() < 0.02) {
+            this.spawnProcess();
         }
+        
+        this.gameLoop = requestAnimationFrame(() => this.update());
     }
 }
 
 // Initialize game when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new ProcessGame();
+    const game = new ProcessGame('game');
 });

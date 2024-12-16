@@ -4,37 +4,44 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Build output
+# Build outputs
 dist/
 build/
 _site/
-.jekyll-cache/
+*.o
+*.out
+*.exe
 
 # C++ build
 cpp/build/
-*.o
-*.exe
-*.out
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+*.a
+*.so
+*.dll
+*.dylib
 
-# IDE and editor files
+# IDE/Editor
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+
+# OS
 .DS_Store
-
-# Environment variables
+Thumbs.db
 .env
-.env.local
-.env.*.local
-
-# Dependency directories
-vendor/
-bower_components/
 
 # Logs
 logs/
 *.log
+
+# Dependencies
+package-lock.json
+yarn.lock
 
 # Testing
 coverage/
