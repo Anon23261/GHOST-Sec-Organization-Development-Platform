@@ -27,10 +27,19 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
+      - name: Build static site
+        run: |
+          # Ensure _site directory exists
+          mkdir -p _site
+          # Copy all files to _site directory
+          cp -r * _site/ || true
+          # Ensure headers file is in place
+          cp _headers _site/_headers || true
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
   deploy:
     needs: build
