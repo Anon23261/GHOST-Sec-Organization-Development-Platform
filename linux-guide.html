@@ -75,10 +75,10 @@
             background-color: #f0f0f0;
         }
         
-        .project-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
         }
         
         .project-card {
@@ -86,12 +86,17 @@
             padding: 1rem;
             border-radius: 8px;
             margin: 1rem;
-            width: calc(33.33% - 2rem);
         }
         
         .project-card h3 {
             color: #00cc00;
             margin-bottom: 0.5rem;
+        }
+        
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .project-link {
@@ -324,21 +329,33 @@
 
             <section class="content-section" id="os-development">
                 <h2>OS Development Projects</h2>
-                <div class="project-links">
+                <div class="project-grid">
                     <div class="project-card">
                         <h3>Official GHOST-C OS</h3>
                         <p>Our flagship operating system project focused on security and performance.</p>
-                        <a href="https://github.com/Anon23261/Official-ghostC-OS" target="_blank" class="project-link">View Project</a>
+                        <div class="project-links">
+                            <a href="https://github.com/Anon23261/Official-ghostC-OS" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Project
+                            </a>
+                        </div>
                     </div>
                     <div class="project-card">
                         <h3>GHOST-C OS (Development)</h3>
                         <p>Development branch of GHOST-C OS with experimental features.</p>
-                        <a href="https://github.com/Anon23261/GHOSTc-OS" target="_blank" class="project-link">View Project</a>
+                        <div class="project-links">
+                            <a href="https://github.com/Anon23261/GHOSTc-OS" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Project
+                            </a>
+                        </div>
                     </div>
                     <div class="project-card">
                         <h3>First Bootloader Build</h3>
                         <p>Initial bootloader implementation and learning resources.</p>
-                        <a href="https://github.com/Anon23261/FirstBootloaderBuild" target="_blank" class="project-link">View Project</a>
+                        <div class="project-links">
+                            <a href="https://github.com/Anon23261/FirstBootloaderBuild" target="_blank" class="project-link">
+                                <i class="fab fa-github"></i> View Project
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -387,5 +404,14 @@
         <p>&copy; 2024 GHOST Sec Organization. All rights reserved.</p>
     </footer>
     <script src="js/os-dev-game.js"></script>
+    <script>
+        // Initialize game when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('osDevGameContainer')) {
+                console.log('Initializing OS Development Game...');
+                const game = new OSDevGame('osDevGameContainer');
+            }
+        });
+    </script>
 </body>
 </html>
