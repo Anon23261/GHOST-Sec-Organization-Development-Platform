@@ -11,12 +11,15 @@ class TerminalGame {
 
     async loadLevels() {
         try {
-            const response = await fetch('levels.json');
+            const response = await fetch('js/levels.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             this.levels = await response.json();
             this.init();
         } catch (error) {
             console.error('Error loading levels:', error);
-            this.showError('Failed to load game levels. Please refresh the page.');
+            this.showError(`Failed to load game levels: ${error.message}. Please refresh the page.`);
         }
     }
 
@@ -439,5 +442,5 @@ class TerminalGame {
 
 // Initialize game when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const game = new TerminalGame('gameContainer');
+    const game = new TerminalGame('terminalGameContainer');
 });

@@ -218,9 +218,34 @@
     <footer>
         <p>&copy; 2024 GHOST Sec Organization. All rights reserved.</p>
     </footer>
+    <script>
+        // Global error handler
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
+            return false;
+        };
+    </script>
     <script src="js/navigation.js"></script>
     <script src="js/game.js"></script>
     <script src="js/kernel-defender.js"></script>
     <script src="main.js"></script>
+    <script>
+        // Initialize games after all scripts are loaded
+        window.addEventListener('load', function() {
+            // Check if all required scripts are loaded
+            if (typeof TerminalGame === 'undefined') {
+                console.error('Terminal game script not loaded properly');
+                return;
+            }
+            
+            try {
+                // Initialize terminal game
+                const terminalGame = new TerminalGame('terminalGameContainer');
+                console.log('Terminal game initialized successfully');
+            } catch (error) {
+                console.error('Error initializing terminal game:', error);
+            }
+        });
+    </script>
 </body>
 </html>
