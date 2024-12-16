@@ -5,6 +5,7 @@ class TerminalGame {
         this.currentLevel = 0;
         this.commandHistory = [];
         this.historyIndex = -1;
+        this.levels = null;
         this.loadLevels();
         this.userProgress = this.loadProgress();
     }
@@ -16,7 +17,10 @@ class TerminalGame {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            this.levels = data;  
+            if (!data || !data.levels || !Array.isArray(data.levels) || data.levels.length === 0) {
+                throw new Error('Invalid levels data structure');
+            }
+            this.levels = data;
             this.init();
         } catch (error) {
             console.error('Error loading levels:', error);
@@ -105,7 +109,10 @@ class TerminalGame {
     }
 
     init() {
-        if (!this.levels) return;
+        if (!this.levels || !this.levels.levels || this.levels.levels.length === 0) {
+            console.error('Levels not properly loaded');
+            return;
+        }
         
         this.container.innerHTML = '';
         this.container.appendChild(this.createLevelInfo());
@@ -141,19 +148,26 @@ class TerminalGame {
     }
 
     createLevelInfo() {
+        if (!this.levels || !this.levels.levels || !this.levels.levels[this.currentLevel]) {
+            console.error('Cannot create level info - invalid level data');
+            return document.createElement('div');
+        }
+
         const levelInfo = document.createElement('div');
         levelInfo.className = 'level-info';
 
         const levelHeader = document.createElement('div');
         levelHeader.className = 'level-header';
         
+        const currentLevel = this.levels.levels[this.currentLevel];
+        
         const levelTitle = document.createElement('h2');
-        levelTitle.textContent = `Level ${this.currentLevel + 1}: ${this.levels.levels[this.currentLevel].title}`;
+        levelTitle.textContent = `Level ${this.currentLevel + 1}: ${currentLevel.title}`;
         levelHeader.appendChild(levelTitle);
 
         const levelDescription = document.createElement('p');
         levelDescription.className = 'level-description';
-        levelDescription.textContent = this.levels.levels[this.currentLevel].description;
+        levelDescription.textContent = currentLevel.description;
         levelHeader.appendChild(levelDescription);
 
         levelInfo.appendChild(levelHeader);
@@ -162,7 +176,7 @@ class TerminalGame {
         objectives.className = 'objectives';
         objectives.innerHTML = '<h3>Objectives:</h3>';
         const objectivesList = document.createElement('ul');
-        this.levels.levels[this.currentLevel].objectives.forEach(obj => {
+        currentLevel.objectives.forEach(obj => {
             const li = document.createElement('li');
             li.textContent = obj;
             objectivesList.appendChild(li);
