@@ -16,7 +16,7 @@ class TerminalGame {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            this.levels = data.levels;
+            this.levels = data;  
             this.init();
         } catch (error) {
             console.error('Error loading levels:', error);
