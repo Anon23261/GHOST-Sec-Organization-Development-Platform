@@ -4,141 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GHOST Sec Organization</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/flexbox-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="js/game.js" defer></script>
-    <script src="js/main.js" defer></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <img src="images/ghost-logo.png" alt="GHOST Sec Logo" class="logo">
-            <span>GHOST Sec</span>
-        </div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#os-dev">OS Development</a>
-            <a href="#game">Interactive Game</a>
-            <a href="#resources">Resources</a>
-        </div>
-    </nav>
-
-    <header id="home" class="hero">
-        <h1>GHOST Sec Organization</h1>
-        <p>Advancing Open Source Operating System Development</p>
-        <div class="badges">
-            <span class="badge">OS Development</span>
-            <span class="badge">Bootloader Engineering</span>
-            <span class="badge">Linux Kernel</span>
-        </div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.svg" alt="GHOST Sec Logo" height="50">
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#os-dev">OS Development</a>
+                <a href="#games">Games</a>
+                <a href="#contact">Contact</a>
+                <button class="login-btn">Login</button>
+                <button class="register-btn">Register</button>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <section id="projects" class="projects">
-            <h2>Our Projects</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>GHOST-OS</h3>
-                    <p>Official GHOST-C Operating System</p>
-                    <div class="github-stats">
-                        <span><i class="fas fa-star"></i> Stars</span>
-                        <span><i class="fas fa-code-branch"></i> Forks</span>
-                    </div>
-                    <a href="https://github.com/Anon23261/Official-ghostC-OS" class="btn" target="_blank">View Repository</a>
-                </div>
+        <section id="home" class="hero">
+            <h1>Welcome to GHOST Sec</h1>
+            <p>Exploring the frontiers of operating system development and cybersecurity</p>
+        </section>
 
-                <div class="project-card">
-                    <h3>First Bootloader Build</h3>
-                    <p>Custom Bootloader Implementation</p>
-                    <div class="github-stats">
-                        <span><i class="fas fa-star"></i> Stars</span>
-                        <span><i class="fas fa-code-branch"></i> Forks</span>
-                    </div>
-                    <a href="https://github.com/Anon23261/FirstBootloaderBuild" class="btn" target="_blank">View Repository</a>
+        <section id="os-dev" class="features">
+            <h2>OS Development</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Bootloader Development</h3>
+                    <p>Learn about UEFI and legacy bootloader development</p>
                 </div>
-
-                <div class="project-card">
-                    <h3>GHOST-C OS</h3>
-                    <p>Advanced Operating System Development</p>
-                    <div class="github-stats">
-                        <span><i class="fas fa-star"></i> Stars</span>
-                        <span><i class="fas fa-code-branch"></i> Forks</span>
-                    </div>
-                    <a href="https://github.com/Anon23261/GHOSTc-OS" class="btn" target="_blank">View Repository</a>
+                <div class="feature-card">
+                    <h3>Kernel Programming</h3>
+                    <p>Explore kernel development and system programming</p>
+                </div>
+                <div class="feature-card">
+                    <h3>System Resources</h3>
+                    <p>Understand memory management and process scheduling</p>
                 </div>
             </div>
         </section>
 
-        <section id="os-dev" class="os-dev">
-            <h2>OS Development Resources</h2>
-            <div class="resource-grid">
-                <div class="resource-card">
-                    <h3>Bootloader Structure</h3>
-                    <pre class="code-block">
-; Basic Bootloader Structure
-[BITS 16]
-[ORG 0x7C00]
-
-start:
-    cli
-    mov ax, 0x0000
-    mov ds, ax
-    mov es, ax
-    mov ss, ax
-    mov sp, 0x7C00
-    sti
-
-    ; Boot code here
-
-    jmp $
-
-times 510-($-$$) db 0
-dw 0xAA55
-                    </pre>
-                </div>
-
-                <div class="resource-card">
-                    <h3>Linux Kernel Resources</h3>
-                    <ul>
-                        <li><a href="https://www.kernel.org/" target="_blank">Latest Linux Kernel</a></li>
-                        <li><a href="http://www.slackware.com/~alien/slackbuilds/" target="_blank">Slackware From Scratch</a></li>
-                        <li>Kernel Version: 6.6.8 (Latest Stable)</li>
-                    </ul>
-                </div>
+        <section id="games" class="games">
+            <h2>Interactive Learning</h2>
+            <div id="game" class="game-container">
+                <!-- Game will be inserted here by JavaScript -->
             </div>
         </section>
 
-        <section id="game" class="game-section">
-            <h2>OS Development Game</h2>
-            <div class="game-container">
-                <canvas id="gameCanvas" width="800" height="400"></canvas>
-                <div class="game-controls">
-                    <button id="startGame">Start Game</button>
-                    <div class="score">Score: <span id="scoreValue">0</span></div>
-                </div>
-            </div>
+        <section id="contact" class="contact">
+            <h2>Contact Us</h2>
+            <form id="contact-form" class="contact-form">
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
         </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>GHOST Sec Organization</h3>
-                <p>Advancing the future of operating systems through open source development.</p>
+                <h3>About Us</h3>
+                <p>GHOST Sec Organization is dedicated to advancing open-source operating system development and cybersecurity education.</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#os-dev">OS Development</a></li>
-                    <li><a href="#game">Interactive Game</a></li>
-                </ul>
+                <a href="#home">Home</a>
+                <a href="#os-dev">OS Development</a>
+                <a href="#games">Games</a>
+                <a href="#contact">Contact</a>
             </div>
             <div class="footer-section">
                 <h3>Connect</h3>
                 <div class="social-links">
                     <a href="https://github.com/Anon23261" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://twitter.com/ghostsec" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://discord.gg/ghostsec" target="_blank"><i class="fab fa-discord"></i></a>
                 </div>
             </div>
         </div>
@@ -146,5 +91,33 @@ dw 0xAA55
             <p>&copy; 2024 GHOST Sec Organization. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="register">Register</button>
+            </div>
+            <form id="loginForm" class="auth-form active">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <form id="registerForm" class="auth-form">
+                <input type="text" placeholder="Username" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/game.js"></script>
 </body>
 </html>

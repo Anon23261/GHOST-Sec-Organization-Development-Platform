@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server . -p 8080",
-    "build": "mkdir -p dist && cp -r index.html css js images dist/",
+    "build": "mkdir -p dist && mkdir -p dist/images && cp -r index.html css js images/* dist/ || true",
     "test": "jest",
     "lint": "eslint js/"
   },
