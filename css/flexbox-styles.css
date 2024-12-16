@@ -939,3 +939,87 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Architecture Section */
+.architecture-section {
+    padding: 2rem;
+    margin: 2rem 0;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+}
+
+.architecture-section h2 {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.architecture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.arch-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 255, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.arch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.1);
+}
+
+.arch-card h3 {
+    color: #00ff00;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.arch-card h3 i {
+    font-size: 1.5rem;
+}
+
+.arch-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.arch-card li {
+    color: #ccc;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.arch-card li:last-child {
+    border-bottom: none;
+}
+
+.arch-card li::before {
+    content: "→";
+    color: #00ff00;
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .architecture-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .arch-card {
+        margin-bottom: 1rem;
+    }
+}

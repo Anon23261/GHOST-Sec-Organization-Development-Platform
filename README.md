@@ -163,3 +163,150 @@ GHOST SEC | SYSTEM INITIALIZED | READY FOR DEPLOYMENT
     Settings:
     - SSL: Full
     - Always Use HTTPS: On
+
+# 🚀 Linux Learning Platform
+
+<div align="center">
+
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Slackware](https://img.shields.io/badge/Slackware-000000?style=for-the-badge&logo=slackware&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen.svg)](https://ghostsec420.github.io/linux-guide/)
+[![Last Commit](https://img.shields.io/github/last-commit/ghostsec420/linux-guide.svg)](https://github.com/ghostsec420/linux-guide/commits/main)
+
+</div>
+
+## 📚 Table of Contents
+- [Overview](#-overview)
+- [Features](#-features)
+- [Interactive Learning](#-interactive-learning)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Development](#-development)
+- [Contributing](#-contributing)
+- [Contact](#-contact)
+
+## 🌟 Overview
+
+An interactive platform for learning Linux, focusing on Slackware distribution and OS development. This project combines comprehensive guides with hands-on learning through interactive terminal simulations and OS development challenges.
+
+## 🎯 Features
+
+### 🐧 Linux Guide
+- **Comprehensive Documentation**: Detailed guides on Linux fundamentals
+- **Slackware Focus**: In-depth coverage of Slackware Linux
+- **Command Reference**: Extensive Linux command documentation
+- **Best Practices**: System administration and security guidelines
+
+### 🎮 Interactive Learning
+- **Terminal Simulator**: Practice Linux commands in a safe environment
+- **OS Development Game**: Learn OS development concepts interactively
+- **Progress Tracking**: Monitor your learning journey
+- **Instant Feedback**: Real-time command validation and hints
+
+### 🛠 Development Tools
+- **Custom Build Options**: Create personalized Slackware builds
+- **Bootloader Configuration**: Learn LILO and GRUB setup
+- **Package Management**: Understand Slackware package system
+- **System Administration**: Hands-on system configuration tasks
+
+## 🎓 Interactive Learning
+
+Our platform features two main interactive components:
+
+### 1. Terminal Simulator
+- Practice Linux commands safely
+- Real-time feedback and validation
+- Progressive difficulty levels
+- Command history and suggestions
+
+### 2. OS Development Game
+```bash
+# Example game progression
+Level 1: System Preparation
+├── Partition Management
+├── Filesystem Setup
+└── Base System Installation
+
+Level 2: System Configuration
+├── Network Setup
+├── User Management
+└── Security Configuration
+
+Level 3: Advanced Features
+├── Bootloader Installation
+├── Kernel Configuration
+└── Package Management
+```
+
+## 🚀 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/ghostsec420/linux-guide.git
+cd linux-guide
+```
+
+2. Open in your browser:
+```bash
+# Using Python's built-in server
+python -m http.server 8000
+
+# Or using Node.js
+npx serve
+```
+
+## 💻 Usage
+
+1. Visit the [Live Website](https://ghostsec420.github.io/linux-guide/)
+2. Navigate through the Linux Guide sections
+3. Try the interactive terminal simulator
+4. Challenge yourself with the OS development game
+
+## 🛠 Development
+
+### Prerequisites
+- Modern web browser
+- Basic understanding of Linux
+- Text editor or IDE
+
+### Local Development
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📞 Contact
+
+- Email: [ghostsector@icloud.com](mailto:ghostsector@icloud.com)
+- Phone: [+1 (480) 235-3187](tel:+14802353187)
+- GitHub: [@Anon23261](https://github.com/Anon23261)
+
+<div align="center">
+
+### 🌟 Star us on GitHub — it helps!
+
+[![GitHub stars](https://img.shields.io/github/stars/ghostsec420/linux-guide.svg?style=social&label=Star)](https://github.com/ghostsec420/linux-guide)
+[![GitHub followers](https://img.shields.io/github/followers/ghostsec420.svg?style=social&label=Follow)](https://github.com/ghostsec420)
+
+</div>
+
+---
+
+<div align="center">
+Made with 💚 by GHOST Sec Organization
+</div>
